@@ -1,0 +1,103 @@
+<!--<app-flight></app-flight>-->
+<!--<app-hotel></app-hotel>-->
+    <style>
+      .container_outer {
+        width: 1000px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+      }
+      .container_inner {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      .list-list {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      .list-list-item {
+        /*list-style: none;*/
+      }
+      .refundable{
+        color: forestgreen;
+      }
+      img {
+        max-width: 100%
+      }
+      .image {
+        flex-basis: 40%
+      }
+      .text {
+        /*font-size: 20px;*/
+        /*padding-left: 20px;*/
+      }
+      .star-rating {
+        font-size: 2em;
+        color: #ffc107;
+     }
+
+    </style>
+    <div class="container_outer">
+      <div class="image">
+        <img ngSrc="../../../assets/images/sample1.png" height="300" width="433">
+      </div>
+      <div class="container_inner">
+        <div class="text">
+        <h1>El Encanto All Inclusive Resort at Hacienda Encantada.</h1>
+        </div>
+
+<!--        <div style="display: flex;flex-direction: row; padding: 0 5px 0; max-width: 150px; justify-content: space-between">-->
+<!--        <h4>All inclusive</h4>-->
+<!--        <h4>Pool</h4>-->
+<!--      -->
+<!--        </div>-->
+        <mat-chip-listbox aria-label="Fish selection">
+          <mat-chip-option>All-inclusive</mat-chip-option>
+          <mat-chip-option>Pool</mat-chip-option>
+          <mat-chip-option color="accent" selected>Sauna</mat-chip-option>
+          <mat-chip-option>Backrooms</mat-chip-option>
+        </mat-chip-listbox>
+
+        <br>
+
+        <div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: space-between">
+        <div class="refundable">
+            <h2>Fully refundable property</h2>
+        </div>
+
+          <div style="display: flex;flex-direction: column;max-height: 100px">
+              <div class = "text">
+                <h3>CA $1,445</h3>
+              </div>
+                <div class = "text">
+                <h4>per traveller</h4>
+              </div>
+                <div class = "text">
+                <h5>CA $2,890 trip total</h5>
+              </div>
+          </div>
+        </div>
+<!--      <i class="fa fa-star-o" style="font-size:24px"></i>-->
+<!--      <app-star-rating [rating]="3.5"></app-star-rating>-->
+<!--    -->
+        <div style="display: flex;flex-direction: row; padding: 0 5px 0; max-width: 100px; justify-content: space-between">
+           <div class="text">
+              <h3>8.6</h3>
+           </div>
+
+           <div class="text">
+              <h3>Excellent</h3>
+           </div>
+        </div>
+
+        <div style="display: flex;flex-direction: row; padding: 0 0 0 0; justify-content: flex-end">
+        <button mat-raised-button color="primary">Book package</button>
+        </div>
+
+    </div>
+    </div>

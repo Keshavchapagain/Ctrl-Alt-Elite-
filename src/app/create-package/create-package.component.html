@@ -1,0 +1,41 @@
+<app-top-bar></app-top-bar>
+
+<mat-form-field class = "example-form-field" color = "primary">
+  <mat-label >Arrival and depature</mat-label>
+  <mat-date-range-input
+    [formGroup]="campaignOne"
+    [rangePicker]="campaignOnePicker"
+    [comparisonStart]="campaignTwo.value.start"
+    [comparisonEnd]="campaignTwo.value.end">
+    <input matStartDate placeholder="Arrival date" formControlName="start">
+    <input matEndDate placeholder="Departure date" formControlName="end">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+  <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Country</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Name</mat-label>
+  <input matInput>
+</mat-form-field>
+
+
+<mat-form-field>
+  <mat-label>Price</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<mat-checkbox class="example-margin">Check me!</mat-checkbox>
+<mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox>
+<mat-checkbox color="primary">Primary</mat-checkbox>
+
+
+<button (click)="open($event, item)" routerLink="/createPackage" mat-raised-button color="primary">Create</button>
+
+
