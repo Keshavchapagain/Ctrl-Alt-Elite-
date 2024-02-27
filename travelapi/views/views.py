@@ -3,11 +3,11 @@ from travelapi.serializers.travelSerializers import HotelSerializer, FlightSeria
 from rest_framework import permissions, generics
 
 
-class BaseApiView(generics.ListCreateAPIView):
+class BaseApiView(generics.ListAPIView):
     pass
 
 
-class BaseApiDetailView(generics.RetrieveUpdateDestroyAPIView):
+class BaseApiDetailView(generics.RetrieveUpdateDestroyAPIView, generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
