@@ -7,11 +7,11 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-class BaseApiView(generics.ListCreateAPIView):
+class BaseApiView(generics.ListAPIView):
     pass
 
 
-class BaseApiDetailView(generics.RetrieveUpdateDestroyAPIView):
+class BaseApiDetailView(generics.RetrieveUpdateDestroyAPIView, generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
