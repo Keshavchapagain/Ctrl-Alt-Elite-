@@ -1,6 +1,10 @@
 from travelapi.models.travelModels import Hotel, Flight, Activity, Package
-from travelapi.serializers.travelSerializers import HotelSerializer, FlightSerializer, ActivitySerializer, PackageSerializer
+from travelapi.serializers.travelSerializers import HotelSerializer, FlightSerializer, ActivitySerializer, \
+    PackageSerializer
 from rest_framework import permissions, generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 
 class BaseApiView(generics.ListCreateAPIView):
@@ -60,3 +64,11 @@ class PackageAPIView(BaseApiView):
 class PackageApiDetailView(BaseApiDetailView):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
+
+
+class PackageSearchAPIView(APIView):
+    def get(self, request):
+        query = request.query_params.get('query', '')
+        packages = Package.objects.filter(name__icontains=query)
+        serializer = PackageSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
