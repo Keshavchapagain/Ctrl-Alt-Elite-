@@ -9,5 +9,6 @@ urlpatterns = [
     path('activity/', views.ActivityApiView.as_view()),
     path('activity/<int:pk>', views.ActivityApiDetailView.as_view(), name='activity-detail'),
     path('package/', views.PackageAPIView.as_view()),
-    path('package/<int:pk>', views.PackageApiDetailView.as_view(), name='package-detail')
+    path('package/<int:pk>', views.PackageApiDetailView.as_view(), name='package-detail'),
+    path('package/search', views.PackageSearchAPIView.as_view())
 ]
