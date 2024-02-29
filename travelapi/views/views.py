@@ -11,11 +11,20 @@ class BaseApiView(generics.ListAPIView):
     pass
 
 
-class BaseApiDetailView(generics.RetrieveUpdateDestroyAPIView, generics.CreateAPIView):
+class BaseApiCreate(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class BaseApiDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
 # views for Hotel
+
+class HotelApiCreateView(BaseApiCreate):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
+
 
 class HotelApiView(BaseApiView):
     queryset = Hotel.objects.all()
@@ -30,12 +39,17 @@ class HotelApiDetailView(BaseApiDetailView):
 # Views for Flights
 
 
+class FlightApiCreateView(BaseApiCreate):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+
+
 class FlightApiView(BaseApiView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
 
 
-class FlightApiDetailView(BaseApiDetailView):
+class FlightApiDetailView(BaseApiDetailView, BaseApiCreate):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
 
@@ -43,17 +57,26 @@ class FlightApiDetailView(BaseApiDetailView):
 # Views for Activity
 
 
+class ActivityApiCreateView(BaseApiCreate):
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
+
+
 class ActivityApiView(BaseApiView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
 
-class ActivityApiDetailView(BaseApiDetailView):
+class ActivityApiDetailView(BaseApiDetailView, BaseApiCreate):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
 
 # Views for Travel Packages
+
+class PackageApiCreateView(BaseApiCreate):
+    queryset = Package.objects.all()
+    serializer_class = PackageSerializer
 
 
 class PackageAPIView(BaseApiView):
@@ -61,7 +84,7 @@ class PackageAPIView(BaseApiView):
     serializer_class = PackageSerializer
 
 
-class PackageApiDetailView(BaseApiDetailView):
+class PackageApiDetailView(BaseApiDetailView, BaseApiCreate):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
 
