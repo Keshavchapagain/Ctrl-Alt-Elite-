@@ -1,13 +1,7 @@
+from django.contrib.admin import action
 from rest_framework import viewsets
-from rest_framework.response import Response
-
-from .models import Package
-from .serializers import PackageSerializer
-
-
-# class PackageViewSet(viewsets.ReadOnlyModelViewSet):
-#     queryset = Package.objects.all()
-#     serializer_class = PackageSerializer(queryset,many=True)
+from .models import Package, Hotel
+from .serializers import PackageSerializer, HotelSerializer
 
 
 class PackageViewSet(viewsets.ModelViewSet):
@@ -20,6 +14,13 @@ class PackageViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+#    def perform_update(self, request, pk=None):
+ #       package =
+
     def get_serializer_class(self):
         return PackageSerializer
 
+
+class HotelApiDetailView(viewsets.ModelViewSet):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
