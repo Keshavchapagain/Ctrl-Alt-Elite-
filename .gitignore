@@ -2,5 +2,5 @@
 __pycache__/
 *.py[cod]
 *$py.class
-temp/.angular
-temp/node_modules
+web-features/.angular
+web-features/node_modules
