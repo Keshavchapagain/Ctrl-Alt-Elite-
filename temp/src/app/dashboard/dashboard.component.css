@@ -1,0 +1,7 @@
+#vertical thead,#vertical tbody{
+    display:inline-block;
+ }
+
+#vertical thead tr th {
+    text-align: left;
+}

@@ -1,0 +1,34 @@
+<app-top-bar></app-top-bar>
+<div></div>
+
+<div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: flex-start; gap: 50px; width: 1000px">
+
+
+<!--<form [formGroup]="packageNameForm">-->
+<!--<mat-form-field>-->
+<!--  <mat-label>Enter package name</mat-label>-->
+<!--  <input matInput formControlName="packageName">-->
+<!--</mat-form-field>-->
+<!--</form>-->
+
+
+<!--   <div style="display: flex;flex-direction: column; gap : 30px ;padding: 0 0 0; justify-content: flex-start">-->
+<!--      <button (click)="addHotel()" mat-raised-button color="accent">Add hotel</button>-->
+      <app-hotel #hotel></app-hotel>
+<!--   </div>-->
+
+<!--  <div style="display: flex;flex-direction: column; gap : 30px ;padding: 0 0 0; justify-content: flex-start">-->
+<!--      <button (click)="addFlight()" mat-raised-button color="accent">Add flight</button>-->
+      <app-flight #flight></app-flight>
+<!-- </div>-->
+
+<!--    <button (click)="addActivity()" mat-raised-button color="accent">Add activity</button>-->
+
+
+    <app-package-details #_package></app-package-details>
+</div>
+
+<button (click)="createPackage(hotel.getHotel(),flight.getFlight(),_package.getPackageDetails())"
+        routerLink="/" mat-raised-button color="primary">Create package</button>
+
+

@@ -1,0 +1,19 @@
+<app-top-bar></app-top-bar>
+
+<!--<form>-->
+<!--<mat-form-field>-->
+<!--  <mat-label>Search</mat-label>-->
+<!--&lt;!&ndash;  <input matInput #box (keyup.enter)="onSearch(box.value)">&ndash;&gt;-->
+<!--</mat-form-field>-->
+<!--</form>-->
+
+<ul *ngFor="let package of packages; index as i">
+<!--  {{package['price']}}-->
+  <ng-container *ngComponentOutlet="
+        packageAt(i).component;
+        inputs: packageAt(i).inputs;
+      " />
+
+</ul>
+
+

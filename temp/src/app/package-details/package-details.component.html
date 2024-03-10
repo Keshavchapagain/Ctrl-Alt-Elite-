@@ -1,0 +1,36 @@
+
+<form [formGroup]="countryForm">
+<mat-form-field>
+  <mat-label>Country</mat-label>
+  <input matInput formControlName="country">
+</mat-form-field>
+</form>
+
+<form [formGroup]="totalPriceForm">
+<mat-form-field>
+  <mat-label>Total price</mat-label>
+  <input matInput formControlName="totalPrice">
+</mat-form-field>
+</form>
+
+<form [formGroup]="ratingForm">
+<mat-form-field>
+  <mat-label>Rating</mat-label>
+  <input matInput formControlName="rating">
+</mat-form-field>
+</form>
+
+<form [formGroup]="amenitiesForm">
+<mat-form-field>
+  <mat-label>Amenities</mat-label>
+  <textarea matInput formControlName="amenities" placeholder="Ex. Sauna,Pool,..(comma seperated)"></textarea>
+
+</mat-form-field>
+</form>
+
+<form [formGroup]="imagePathForm">
+<mat-form-field>
+  <mat-label>Image path (relative to assets folder)</mat-label>
+  <input matInput formControlName="imagePath">
+</mat-form-field>
+</form>

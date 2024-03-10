@@ -1,0 +1,43 @@
+
+<form [formGroup]="nameForm">
+<mat-form-field>
+  <mat-label>Name</mat-label>
+  <input matInput formControlName="name">
+</mat-form-field>
+</form>
+
+<form [formGroup]="addressForm">
+<mat-form-field>
+  <mat-label>Address</mat-label>
+  <input matInput formControlName="address">
+</mat-form-field>
+</form>
+
+<form [formGroup]="priceForm">
+<mat-form-field>
+  <mat-label>Price</mat-label>
+  <input matInput formControlName="price">
+</mat-form-field>
+</form>
+
+<!--<h4>Basic mat-select</h4>-->
+<mat-form-field>
+  <mat-label>Room type</mat-label>
+  <mat-select>
+    @for (type of roomTypes; track type) {
+      <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<form [formGroup]="descriptionForm">
+<mat-form-field>
+  <mat-label>Description</mat-label>
+<!--  <input matInput formControlName="description">-->
+  <textarea matInput formControlName="description" placeholder="Ex. This hotel comes with..."></textarea>
+</mat-form-field>
+</form>
+
+<!--<button (click)="confirmHotel()" mat-raised-button color="primary">Confirm</button>-->
+
+

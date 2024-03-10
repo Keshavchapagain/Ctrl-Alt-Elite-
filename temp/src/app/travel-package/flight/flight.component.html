@@ -1,0 +1,50 @@
+<form [formGroup]="nameForm">
+<mat-form-field>
+  <mat-label>Airline</mat-label>
+  <input matInput formControlName="name">
+</mat-form-field>
+</form>
+
+<form [formGroup]="priceForm">
+<mat-form-field>
+  <mat-label>Price</mat-label>
+  <input matInput formControlName="price">
+</mat-form-field>
+</form>
+
+
+<form [formGroup]="departureLocationForm">
+<mat-form-field>
+  <mat-label>Departing from</mat-label>
+  <input matInput formControlName="departureLocation">
+</mat-form-field>
+</form>
+
+<form [formGroup]="arrivalLocationForm">
+<mat-form-field>
+  <mat-label>Arriving to</mat-label>
+  <input matInput formControlName="arrivalLocation">
+</mat-form-field>
+</form>
+
+
+<mat-form-field>
+  <mat-label>Travel dates</mat-label>
+  <form [formGroup]="travelDatesForm">
+  <mat-date-range-input [rangePicker]="picker">
+
+
+    <input matStartDate placeholder="Start date" formControlName="arrival">
+    <input matEndDate placeholder="End date" formControlName="departure">
+
+  </mat-date-range-input>
+    </form>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+
+<!--<button (click)="confirmFlight()" mat-raised-button color="primary">Confirm</button>-->
+
+
+
