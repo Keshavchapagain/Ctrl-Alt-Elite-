@@ -39,6 +39,19 @@ export class TravelPackageComponent implements OnInit {
   ngOnInit() {
     this.amenitiesList = this._package.amenities.split(",")
   }
+
+  // openDialog(): void {
+  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+  //     width: '250px',
+  //     data: {name: this.name, animal: this.animal}
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     this.animal = result;
+  //   });
+  // }
+
   getRatingScore(){
     if(this._package.rating >= 9)
       return {rating_text : "Excellent", color : 0x00FF00}

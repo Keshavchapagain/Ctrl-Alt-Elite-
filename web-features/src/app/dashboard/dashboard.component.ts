@@ -6,8 +6,8 @@ import {TravelPackageComponent} from "../travel-package/travel-package/travel-pa
 import {RouterLink} from "@angular/router";
 import {TopBarComponent} from "../top-bar/top-bar.component";
 
-import {AsyncPipe, NgComponentOutlet, NgForOf} from '@angular/common';
-import {PackageArray} from "../package";
+import {AsyncPipe, NgComponentOutlet, NgForOf, NgIf} from '@angular/common';
+import {Package, PackageArray} from "../package";
 import {PackageService} from "../package.service";
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -29,18 +29,21 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
     MatInput,
     MatLabel,
     MatFormField,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
 
+  currentlySearchedPackage = ''
   packages :PackageArray = []
   searchForm = new FormGroup({
-    query : new FormControl<string|null>(null)
+    search : new FormControl<string|null>(null)
   })
   constructor(private packageService : PackageService) {
+
   }
   packageAt(i : number) {
 
@@ -59,6 +62,19 @@ export class DashboardComponent implements OnInit{
         console.log(data)
       }
     })
+  }
+
+  isVisible(_package : Package): boolean{
+    let query = this.searchForm.get('search')?.getRawValue()
+    console.log(query)
+    if(query == null || query == ''){
+      return true;
+    }
+    return _package.hotel.name == query
+  }
+  onSearch(query : string){
+    this.currentlySearchedPackage = query
+    console.log(this.currentlySearchedPackage)
   }
   ngOnInit(): void {
     this.getPackages()
