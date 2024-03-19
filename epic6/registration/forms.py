@@ -5,6 +5,9 @@ class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = UserAccount
         fields = ['username', 'email', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
     def clean(self):
         cleaned_data = super().clean()
