@@ -8,6 +8,8 @@ import {PackageService} from "../../package.service";
 import {Hotel} from "../../hotel";
 import {PackageDetails} from "../../packageDetails";
 import {Flight} from "../../flight";
+import {BookingComponent} from "../../booking/booking.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-travel-package',
@@ -33,24 +35,22 @@ export class TravelPackageComponent implements OnInit {
   @Input() _package!: PackageDetails;
 
   // visible : boolean = true;
-  constructor() {
-  }
+  constructor(public dialog: MatDialog) {}
   amenitiesList: string[] = [];
   ngOnInit() {
     this.amenitiesList = this._package.amenities.split(",")
   }
 
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-  //     width: '250px',
-  //     data: {name: this.name, animal: this.animal}
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     this.animal = result;
-  //   });
-  // }
+  bookPackage(): void {
+    const dialogRef = this.dialog.open(BookingComponent, {
+      width: '250px',
+      data: {name: "Name"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   getRatingScore(){
     if(this._package.rating >= 9)

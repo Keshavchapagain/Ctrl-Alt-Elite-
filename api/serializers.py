@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from concordiaTravels.models import Package, Hotel, Flight, PackageDetails
+from api.models import Package, Hotel, Flight, PackageDetails
 from drf_writable_nested import WritableNestedModelSerializer
 
 

@@ -58,7 +58,7 @@
                 <h3>CA ${{_package.price}} (per traveller)</h3>
               </div>
         </div>
-        <button mat-raised-button color="primary">Book package with {{flight.name}}</button>
+        <button (click)="bookPackage()" mat-raised-button color="primary">Book package with {{flight.name}}</button>
          <div class="text" style="padding-left: 40px"> <h5>{{flight.arrival_time.substring(0,10).
          replace("-","/")}} - {{flight.departure_time.substring(0,10).
          replace("-","/")}} </h5>

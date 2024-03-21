@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from concordiaTravels import views
+from api import views
 
 router = routers.DefaultRouter()
-router.register(r'packages', views.PackageViewSet, basename='packages')
+router.register(r'packages', views.PackageViewSet,basename='packages')
 
 # router.register(r'', views.PackageViewSet,basename='packages')
 
