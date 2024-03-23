@@ -8,5 +8,3 @@ admin.site.register(Hotel)
 admin.site.register(Flight)
 admin.site.register(Activity)
 admin.site.register(Package)
-
-

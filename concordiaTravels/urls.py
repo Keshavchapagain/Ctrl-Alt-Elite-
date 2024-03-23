@@ -17,11 +17,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+#from bookingapi import urls as bookingapi_urls
+#from travelapi import urls as travelapi_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('', include('travelapi.urls'))
+    path('travel/', include('travelapi.urls')),
+    path('bookings/', include('bookingapi.urls'))
 ]
 
