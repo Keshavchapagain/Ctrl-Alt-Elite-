@@ -43,12 +43,13 @@ const year = today.getFullYear();
 export class FlightComponent {
 
   @Input() packageName!: string;
+  inputFormsDisabled = true
 
   nameForm = new FormGroup({
     name : new FormControl<string|null>("Air Canada Flight 721")
   })
   priceForm = new FormGroup({
-    price : new FormControl<number|null>(1000)
+    price : new FormControl<number|null>( 1000)
   })
 
   departureLocationForm = new FormGroup({
@@ -67,7 +68,9 @@ export class FlightComponent {
     return ""
   }
   getFlight(): Flight{
-    return {name : this.nameForm.get('name')?.getRawValue(),
+    return {
+            price : this.priceForm.get('price')?.getRawValue(),
+            name : this.nameForm.get('name')?.getRawValue(),
             arrival_time : this.travelDatesForm.get('arrival')?.getRawValue().toString(),
             departure_time :  this.travelDatesForm.get('departure')?.getRawValue().toString(),
             arrival_location : this.arrivalLocationForm.get('arrivalLocation')?.getRawValue(),
@@ -76,7 +79,13 @@ export class FlightComponent {
   }
 
   confirmFlight(){
-    console.log('Creating flight...')
+    this.priceForm.disable()
+    this.nameForm.disable()
+    this.arrivalLocationForm.disable()
+    this.departureLocationForm.disable()
+    this.travelDatesForm.disable()
+    console.log(`Creating flight for ${this.packageName}`)
+
     this.packageService.addFlight(this.packageName,this.getFlight())
   }
 }

@@ -33,7 +33,7 @@ interface RoomType {
 
 export class HotelComponent {
   @Input() packageName!: string;
-
+  inputFormsDisabled = false
   roomTypes : RoomType[] = [
     {value: 'SINGLE', viewValue : "Single bed"},
     {value: 'DOUBLE', viewValue : "Double bed"},
@@ -63,7 +63,11 @@ export class HotelComponent {
     }
   }
   confirmHotel(){
-    this.packageService.addHotel(this.packageName)
+    this.packageService.addHotel(this.packageName,this.getHotel())
+
+    console.log('Creating flight...')
+    this.packageService.addHotel(this.packageName,this.getHotel())
+    this.inputFormsDisabled = true;
   }
 }
 

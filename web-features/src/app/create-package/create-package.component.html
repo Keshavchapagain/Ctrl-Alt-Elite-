@@ -1,32 +1,39 @@
 <app-top-bar></app-top-bar>
-<div></div>
-
-<div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: flex-start; gap: 50px; width: 1000px">
-
 
 <form [formGroup]="packageNameForm">
-<mat-form-field>
-  <mat-label>Enter package name</mat-label>
-  <input matInput formControlName="packageName">
+<mat-form-field style="width:400px;margin-left: 750px" >
+  <mat-label>Enter package name (press enter to create it)</mat-label>
+  <input matInput formControlName="packageName" (keyup.enter)="createPackage()">
 </mat-form-field>
 </form>
 
+<div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: center; gap: 50px;">
 
+
+<!--  <div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: center; gap: 50px;">-->
+<br>
+
+
+  <ng-container *ngIf="addPackageOptionsVisible">
    <div style="display: flex;flex-direction: column; gap : 30px ;padding: 0 0 0; justify-content: flex-start">
       <button (click)="addHotel()" mat-raised-button color="accent">Add hotel</button>
       <app-hotel *ngIf="hotelVisible" #hotel></app-hotel>
    </div>
+    </ng-container>
 
+  <ng-container *ngIf="addPackageOptionsVisible">
   <div style="display: flex;flex-direction: column; gap : 30px ;padding: 0 0 0; justify-content: flex-start">
       <button (click)="addFlight()" mat-raised-button color="accent">Add flight</button>
-      <app-flight *ngIf="flightVisible" #flight></app-flight>
-    </div>
+      <app-flight *ngIf="flightVisible" #flight [packageName]="this.getPackageName()">
 
+      </app-flight>
+    </div>
+  </ng-container>
 <!--    <button (click)="addActivity()" mat-raised-button color="accent">Add activity</button>-->
 
-
-    <app-package-details #_package></app-package-details>
-</div>
+  </div>
+<!--    <app-package-details #_package></app-package-details>-->
+<!--</div>-->
 
 <!--<button (click)="createPackage(hot)"-->
 <!--        routerLink="/" mat-raised-button color="primary">Create package</button>-->

@@ -47,22 +47,24 @@ export class CreatePackageComponent {
   hotelVisible : boolean = false
   flightVisible : boolean = false
 
-
+  addPackageOptionsVisible : boolean = false
 
   packageNameForm = new FormGroup({
-    packageName: new FormControl<number|null>(0.0)
+    packageName: new FormControl<string|null>('')
   })
+  getPackageName(){
+      return this.packageNameForm.get('packageName')?.getRawValue()
+  }
   constructor(private packageService : PackageService) {
   }
-
-  // createPackage(){
-  //   this.packageService.createPackage(hotel,flight,_package)
-  // }
   addHotel(){
     this.hotelVisible = true
   }
-  addActivity(){
-
+  createPackage(){
+    let name = this.getPackageName()
+    console.log(`Creating package ${name}`)
+    this.packageService.createBasePackage(name)
+    this.addPackageOptionsVisible = true
   }
   addFlight() {
     this.flightVisible = true

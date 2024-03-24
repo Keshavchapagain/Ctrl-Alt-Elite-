@@ -14,11 +14,7 @@ export class PackageService {
   getPackagesAPI(): Observable<PackageArray> {
    return this.http.get('http://127.0.0.1:8000/api/v1/packages/') as Observable<PackageArray>;
   }
-  addHotel(packageName : string){
-  // let body =
-   // return this.http.post('http://127.0.0.1:8000/api/v1/packages/') as Observable<PackageArray>;
 
-  }
   addFlight(packageName : string, flight : Flight){
 
    console.log(flight)
@@ -28,20 +24,44 @@ export class PackageService {
      flight.departure_time = iso_departure
 
     let body = `{
-      "name" : "test",
-      "rating" : 10,
       "flight": {
         "name": "${flight.name}",
         "departure_location": "${flight.departure_location  }",
         "arrival_location": "${flight.arrival_location}",
         "departure_time": "${flight.departure_time}",
         "arrival_time": "${flight.arrival_time}",
-        "price": 1000.0
+        "price": ${flight.price}
     }
     }`
-    this.http.post('http://127.0.0.1:8000/package/',JSON.parse(body)).subscribe();
-
+    this.http.patch(`http://127.0.0.1:8000/api/v1/packages/${packageName}/`,JSON.parse(body)).subscribe();
   }
+
+  addHotel(packageName : string, hotel : Hotel){
+
+    let body = `{
+      "hotel": {
+        "name": "${hotel.name}",
+        "address": "${hotel.address  }",
+        "room_type": "${hotel.room_type}",
+        "price": "${hotel.price}",
+        "description": "${hotel.description}",
+        }
+    }`
+    this.http.patch(`http://127.0.0.1:8000/api/v1/packages/${packageName}/`,JSON.parse(body)).subscribe();
+  }
+
+
+  createBasePackage(name : String){
+
+     let postBody = ` {
+     "hotel" : {},
+     "flight" : {},
+     "_package" : {},
+     "name" : "${name}"
+    }`
+    this.http.post('http://127.0.0.1:8000/api/v1/packages/',JSON.parse(postBody)).subscribe();
+  }
+
    createPackage(hotel : Hotel,flight : Flight, _package : PackageDetails){
 
     /*
@@ -67,7 +87,7 @@ export class PackageService {
         "arrival_location": "${flight.arrival_location}",
         "departure_time": "${flight.departure_time}",
         "arrival_time": "${flight.arrival_time}",
-        "price": 1000.0
+        "price": ${flight.price}
     },
     "_package" : {
     "country": "${_package.country}",
