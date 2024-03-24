@@ -1,6 +1,9 @@
 from rest_framework import serializers
-from .models import Booking
-from travelapi.serializers.travelSerializers import PackageSerializer
+from .models import Booking, CustomPackageBooking
+from travelapi.serializers.travelSerializers import (PackageSerializer,
+                                                     HotelSerializer,
+                                                     FlightSerializer,
+                                                     ActivitySerializer)
 
 class BookingSerializer(serializers.ModelSerializer):
     package = PackageSerializer
@@ -8,3 +11,12 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = '__all__'
+
+# class CustomPackageBookingSerializer(serializers.ModelSerializer):
+#    hotel = hotelSerializer
+#    flight = FlightSerializer
+#    activity = ActivitySerializer
+# 
+#     class Meta:
+#         model = Booking
+#         fields = '__all__'
