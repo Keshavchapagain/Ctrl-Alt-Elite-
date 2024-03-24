@@ -1,5 +1,5 @@
-from .models import Booking #CustomPackageBooking
-from .serializers import BookingSerializer #CustomPackageBookingSerializer
+from .models import Booking  # CustomPackageBooking
+from .serializers import BookingSerializer  # CustomPackageBookingSerializer
 from rest_framework import permissions, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -7,7 +7,7 @@ from rest_framework import status
 from django.conf import settings
 from django.core.mail import send_mail
 
-#from send_emailapi import utils as email_send
+# from send_emailapi import utils as email_send
 
 " list the booking "
 
@@ -25,23 +25,25 @@ class BookingApiView(viewsets.ModelViewSet):
 "Allows user to create a Booking"
 
 
-class BookingCreateView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+class EmailMixin:
 
-    def send_email(self,Booking):
+    def send_email(self, to_email, subject, message):
         from_email = settings.EMAIL_HOST_USER
-        to_email = Booking.email
-        subject = 'Concordia Travels: Booking Creation'
-        first_name = Booking.first_name
-        last_name = Booking.last_name
-        message = f'Hi {first_name} {last_name}, Your booking has been confirmed.'
-        send_mail(subject, message, from_email, [to_email] , fail_silently=False)
+        send_mail(subject, message, from_email, [to_email], fail_silently=False)
+
+
+class BookingCreateView(APIView, EmailMixin):
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
         serializer = BookingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            self.send_email(serializer.instance)
+            self.send_email(
+                to_email=serializer.instance.email,
+                subject='Concordia Travels: Booking Creation',
+                message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking has been confirmed.'
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -49,36 +51,51 @@ class BookingCreateView(APIView):
 "Allows user to update/delete a booking if the user is authenticated"
 
 
-class BookingApiDetailView(APIView):
+class BookingApiDetailView(APIView, EmailMixin):
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = BookingSerializer
 
-    def get_object(self, id):
+    def get(self, request, id):
         try:
-            return Booking.objects.get(id=id)
+            booking = Booking.objects.get(id=id)
+            serializer = self.serializer_class(booking)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Booking.DoesNotExist:
-
             return None
 
     def put(self, request, id):
-        booking = self.get_object(id)
+        booking = self.get_object(id=id)
         if not booking:
             return Response(
                 {"res": "Object with book id does not exists"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        serializer = BookingSerializer(instance= booking, data=request.data, partial=True)
+        serializer = BookingSerializer(instance=booking, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
+            self.send_email(
+                to_email=serializer.instance.email,
+                subject='Concordia Travels: Booking Update',
+                message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking has been Updated Sucessfully'
+            )
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id):
-        booking = self.get_object(id)
+        booking = self.get_object(id=id)
+        to_email = booking.email
+        first_name = booking.first_name
+        last_name = booking.last_name
         if not booking:
             return Response(
                 {"res": "Booking with given id doesn't exists"},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        self.send_email(
+            to_email=to_email,
+            subject='Concordia Travels: Booking Cancellation',
+            message=f'Hi {first_name} {last_name}, Your booking has been Cancelled.'
+        )
         booking.delete()
         return Response(
             {"res": "Booking Deleted Successfully"},
