@@ -8,6 +8,7 @@ from travelapi.models.travelModels import (Package as TravelPackage,
 class Booking(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField()
     message = models.TextField()
 
     # relationship with package

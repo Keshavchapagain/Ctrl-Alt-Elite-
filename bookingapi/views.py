@@ -28,19 +28,20 @@ class BookingApiView(viewsets.ModelViewSet):
 class BookingCreateView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def send_email(self,booking):
+    def send_email(self,Booking):
         from_email = settings.EMAIL_HOST_USER
-        to_email =  settings.EMAIL_HOST_USER
+        to_email = Booking.email
         subject = 'Concordia Travels: Booking Creation'
-        #first_name = booking.first_name
-        message = f'Hi , Your booking has been confirmed.'
+        first_name = Booking.first_name
+        last_name = Booking.last_name
+        message = f'Hi {first_name} {last_name}, Your booking has been confirmed.'
         send_mail(subject, message, from_email, [to_email] , fail_silently=False)
 
     def post(self, request):
         serializer = BookingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            self.send_email(serializer)
+            self.send_email(serializer.instance)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
