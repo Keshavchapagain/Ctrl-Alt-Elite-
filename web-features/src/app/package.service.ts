@@ -14,10 +14,32 @@ export class PackageService {
   getPackagesAPI(): Observable<PackageArray> {
    return this.http.get('http://127.0.0.1:8000/api/v1/packages/') as Observable<PackageArray>;
   }
-  addFlight(packageName : string){
+  addHotel(packageName : string){
+  // let body =
+   // return this.http.post('http://127.0.0.1:8000/api/v1/packages/') as Observable<PackageArray>;
 
   }
-  addHotel(packageName : string){
+  addFlight(packageName : string, flight : Flight){
+
+   console.log(flight)
+    let iso_arrival= new Date(flight.arrival_time).toISOString()
+    let iso_departure= new Date(flight.departure_time).toISOString()
+     flight.arrival_time= iso_arrival
+     flight.departure_time = iso_departure
+
+    let body = `{
+      "name" : "test",
+      "rating" : 10,
+      "flight": {
+        "name": "${flight.name}",
+        "departure_location": "${flight.departure_location  }",
+        "arrival_location": "${flight.arrival_location}",
+        "departure_time": "${flight.departure_time}",
+        "arrival_time": "${flight.arrival_time}",
+        "price": 1000.0
+    }
+    }`
+    this.http.post('http://127.0.0.1:8000/package/',JSON.parse(body)).subscribe();
 
   }
    createPackage(hotel : Hotel,flight : Flight, _package : PackageDetails){

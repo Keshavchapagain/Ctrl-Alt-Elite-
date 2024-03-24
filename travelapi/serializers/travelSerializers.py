@@ -1,3 +1,4 @@
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 from travelapi.models.travelModels import Hotel, Package, Flight, Activity
 
@@ -20,10 +21,10 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PackageSerializer(serializers.ModelSerializer):
-    hotels = HotelSerializer(many=True)
-    flights = FlightSerializer(many=True)
-    activities = ActivitySerializer(many=True)
+class PackageSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
+    hotel = HotelSerializer(many=False)
+    flight = FlightSerializer(many=False)
+    # activities = ActivitySerializer(many=True)
 
     class Meta:
         model = Package

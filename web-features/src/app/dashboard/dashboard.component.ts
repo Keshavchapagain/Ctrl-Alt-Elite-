@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit{
     console.log(this.currentlySearchedPackage)
   }
   ngOnInit(): void {
-    this.getPackages()
+    // this.getPackages()
   }
 
 }

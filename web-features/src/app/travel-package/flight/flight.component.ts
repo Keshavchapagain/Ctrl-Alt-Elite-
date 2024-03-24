@@ -74,7 +74,9 @@ export class FlightComponent {
             departure_location : this.departureLocationForm.get('departureLocation')?.getRawValue(),
     }
   }
+
   confirmFlight(){
-    this.packageService.addFlight(this.packageName)
+    console.log('Creating flight...')
+    this.packageService.addFlight(this.packageName,this.getFlight())
   }
 }

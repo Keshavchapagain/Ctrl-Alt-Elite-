@@ -64,8 +64,8 @@ export class BookingComponent {
 
   elementsOptions: StripeElementsOptions = {
     locale: 'en',
-        clientSecret: `12_secret_${environment.stripe.secretKey}`,
-
+    clientSecret: `12_secret_${environment.stripe.secretKey}`,
+    
     appearance: {
       theme: 'flat'
     }

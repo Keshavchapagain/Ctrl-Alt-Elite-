@@ -47,15 +47,17 @@ export class CreatePackageComponent {
   hotelVisible : boolean = false
   flightVisible : boolean = false
 
+
+
   packageNameForm = new FormGroup({
     packageName: new FormControl<number|null>(0.0)
   })
   constructor(private packageService : PackageService) {
   }
 
-  createPackage(hotel : Hotel,flight : Flight, _package : PackageDetails){
-    this.packageService.createPackage(hotel,flight,_package)
-  }
+  // createPackage(){
+  //   this.packageService.createPackage(hotel,flight,_package)
+  // }
   addHotel(){
     this.hotelVisible = true
   }

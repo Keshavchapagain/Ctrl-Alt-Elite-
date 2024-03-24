@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'TravelAgency.wsgi.application'
+WSGI_APPLICATION = 'concordiaTravels.wsgi.application'
 
 
 # Database
