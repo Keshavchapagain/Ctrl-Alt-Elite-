@@ -12,7 +12,7 @@ import {PackageDetails} from "./packageDetails";
 export class PackageService {
  constructor(private http: HttpClient) { }
   getPackagesAPI(): Observable<PackageArray> {
-   return this.http.get('http://127.0.0.1:8000/api/v1/packages/') as Observable<PackageArray>;
+   return this.http.get('http://127.0.0.1:8000/travels/packages/') as Observable<PackageArray>;
   }
 
   addFlight(packageName : string, flight : Flight){
@@ -26,14 +26,14 @@ export class PackageService {
     let body = `{
       "flight": {
         "name": "${flight.name}",
-        "departure_location": "${flight.departure_location  }",
+        "departure_location": "${flight.departure_location}",
         "arrival_location": "${flight.arrival_location}",
         "departure_time": "${flight.departure_time}",
         "arrival_time": "${flight.arrival_time}",
         "price": ${flight.price}
     }
     }`
-    this.http.patch(`http://127.0.0.1:8000/api/v1/packages/${packageName}/`,JSON.parse(body)).subscribe();
+    this.http.patch(`http://127.0.0.1:8000/travels/packages/${packageName}/`,JSON.parse(body)).subscribe();
   }
 
   addHotel(packageName : string, hotel : Hotel){
@@ -41,13 +41,15 @@ export class PackageService {
     let body = `{
       "hotel": {
         "name": "${hotel.name}",
-        "address": "${hotel.address  }",
+        "address": "${hotel.address}",
         "room_type": "${hotel.room_type}",
-        "price": "${hotel.price}",
-        "description": "${hotel.description}",
+        "price": ${hotel.price},
+        "description": "${hotel.description}"
         }
     }`
-    this.http.patch(`http://127.0.0.1:8000/api/v1/packages/${packageName}/`,JSON.parse(body)).subscribe();
+
+   console.log(body)
+    this.http.patch(`http://127.0.0.1:8000/travels/packages/${packageName}/`,JSON.parse(body)).subscribe();
   }
 
 
@@ -59,7 +61,7 @@ export class PackageService {
      "_package" : {},
      "name" : "${name}"
     }`
-    this.http.post('http://127.0.0.1:8000/api/v1/packages/',JSON.parse(postBody)).subscribe();
+    this.http.post('http://127.0.0.1:8000/travels/packages/',JSON.parse(postBody)).subscribe();
   }
 
    createPackage(hotel : Hotel,flight : Flight, _package : PackageDetails){
@@ -98,6 +100,6 @@ export class PackageService {
     }
     }`
 
-    this.http.post('http://127.0.0.1:8000/api/v1/packages/',JSON.parse(postBody)).subscribe();
+    this.http.post('http://127.0.0.1:8000/travels/packages/',JSON.parse(postBody)).subscribe();
   }
 }

@@ -43,12 +43,11 @@ export class DashboardComponent implements OnInit{
     search : new FormControl<string|null>(null)
   })
   constructor(private packageService : PackageService) {
-
   }
   packageAt(i : number) {
-
     return {
         component:TravelPackageComponent,inputs:{
+          name : this.packages.at(i)?.name,
           hotel : this.packages.at(i)?.hotel,
           _package : this.packages.at(i)?._package,
           flight : this.packages.at(i)?.flight
@@ -63,21 +62,22 @@ export class DashboardComponent implements OnInit{
       }
     })
   }
-
+  /*
+    Searching is done by finding the package such that the name matches what was entered in the search form.
+    When this element is found, it will return a boolean to specify that it should be visible. Thus, searching is done
+    by finding the only element that should be visible.
+   */
   isVisible(_package : Package): boolean{
     let query = this.searchForm.get('search')?.getRawValue()
     console.log(query)
     if(query == null || query == ''){
       return true;
     }
-    return _package.hotel.name == query
+    return _package.name == query
   }
-  onSearch(query : string){
-    this.currentlySearchedPackage = query
-    console.log(this.currentlySearchedPackage)
-  }
+
   ngOnInit(): void {
-    // this.getPackages()
+    this.getPackages()
   }
 
 }

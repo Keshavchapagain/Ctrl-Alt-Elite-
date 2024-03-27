@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, signal} from '@angular/core';
 import {FlightComponent} from "../flight/flight.component";
 import {HotelComponent} from "../hotel/hotel.component";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
@@ -30,25 +30,28 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrl: './travel-package.component.css'
 })
 export class TravelPackageComponent implements OnInit {
+  @Input() name!: string;
   @Input() hotel!: Hotel;
   @Input() flight!: Flight;
   @Input() _package!: PackageDetails;
 
+   booked = signal(false);
   // visible : boolean = true;
   constructor(public dialog: MatDialog) {}
   amenitiesList: string[] = [];
   ngOnInit() {
     this.amenitiesList = this._package.amenities.split(",")
   }
-
+  // Booking a package involves opening a dialog
   bookPackage(): void {
     const dialogRef = this.dialog.open(BookingComponent, {
-      width: '250px',
+      width: '400px',
       data: {name: "Name"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.booked.set(true)
     });
   }
 

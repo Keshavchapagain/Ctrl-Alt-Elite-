@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0002_alter_package_flight_alter_package_hotel'),
+        ('travel_api', '0002_alter_package_flight_alter_package_hotel'),
     ]
 
     operations = [
@@ -45,6 +45,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='package',
             name='_package',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.fields.CharField, to='api.packagedetails'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.fields.CharField, to='travel_api.packagedetails'),
         ),
     ]

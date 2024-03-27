@@ -17,7 +17,9 @@
   <ng-container *ngIf="addPackageOptionsVisible">
    <div style="display: flex;flex-direction: column; gap : 30px ;padding: 0 0 0; justify-content: flex-start">
       <button (click)="addHotel()" mat-raised-button color="accent">Add hotel</button>
-      <app-hotel *ngIf="hotelVisible" #hotel></app-hotel>
+      <app-hotel *ngIf="hotelVisible" #hotel [packageName]="this.getPackageName()">
+
+      </app-hotel>
    </div>
     </ng-container>
 

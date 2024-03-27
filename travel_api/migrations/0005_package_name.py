@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0004_alter_flight_arrival_time_and_more'),
+        ('travel_api', '0004_alter_flight_arrival_time_and_more'),
     ]
 
     operations = [

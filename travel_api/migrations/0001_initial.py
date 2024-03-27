@@ -45,8 +45,8 @@ class Migration(migrations.Migration):
                 ('rating', models.FloatField(default=0)),
                 ('amenities', models.CharField(default='All-inclusive,Pool,Sauna,Backrooms', max_length=100)),
                 ('image_path', models.CharField(default='quinta.png', max_length=100)),
-                ('flight', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='api.flight')),
-                ('hotel', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='api.hotel')),
+                ('flight', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='travel_api.flight')),
+                ('hotel', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='travel_api.hotel')),
             ],
         ),
     ]

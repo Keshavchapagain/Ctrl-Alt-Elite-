@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import Package, Hotel, Flight, PackageDetails
+from travel_api.models import Package, Hotel, Flight, PackageDetails
 from drf_writable_nested import WritableNestedModelSerializer
 
 

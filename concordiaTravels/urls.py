@@ -18,10 +18,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('', include('travelapi.urls'))
+    path('travel_api-auth/', include('rest_framework.urls')),
+    path('travels/', include('travel_api.urls')),
+    path('bookings/', include('booking_api.urls'))
 ]
-

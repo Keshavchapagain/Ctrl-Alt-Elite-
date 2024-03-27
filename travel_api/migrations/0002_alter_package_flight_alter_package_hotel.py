@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0001_initial'),
+        ('travel_api', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='package',
             name='flight',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='api.flight'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='travel_api.flight'),
         ),
         migrations.AlterField(
             model_name='package',
             name='hotel',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='api.hotel'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='travel_api.hotel'),
         ),
     ]

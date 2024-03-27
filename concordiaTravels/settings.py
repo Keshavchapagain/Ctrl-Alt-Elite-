@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'travel_api',
+    'booking_api'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 
-ROOT_URLCONF = 'TravelAgency.urls'
+ROOT_URLCONF = 'concordiaTravels.urls'
 
 TEMPLATES = [
     {
@@ -126,3 +127,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# for sending Emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ctrl.alt.elite.concordia@gmail.com'
+EMAIL_HOST_PASSWORD = 'hhtuclodzbdisgad'

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0003_packagedetails_remove_package_amenities_and_more'),
+        ('travel_api', '0003_packagedetails_remove_package_amenities_and_more'),
     ]
 
     operations = [

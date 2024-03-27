@@ -3,6 +3,7 @@ import {Flight} from "./flight";
 import {PackageDetails} from "./packageDetails";
 
 export interface Package {
+  name : String
   _package : PackageDetails
   hotel : Hotel,
   flight : Flight

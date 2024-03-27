@@ -35,8 +35,8 @@ export class HotelComponent {
   @Input() packageName!: string;
   inputFormsDisabled = false
   roomTypes : RoomType[] = [
-    {value: 'SINGLE', viewValue : "Single bed"},
-    {value: 'DOUBLE', viewValue : "Double bed"},
+    {value: 'Single Room', viewValue : "Single bed"},
+    {value: 'Double Room', viewValue : "Double bed"},
   ]
   nameForm = new FormGroup({
     name : new FormControl<string|null>("Herodion Hotel")
@@ -59,14 +59,13 @@ export class HotelComponent {
       price : this.priceForm.get('price')?.getRawValue(),
       address : this.addressForm.get('address')?.getRawValue(),
       description: this.descriptionForm.get('description')?.getRawValue(),
-      room_type : "Single"
+      room_type : "Single Room"
     }
   }
   confirmHotel(){
     this.packageService.addHotel(this.packageName,this.getHotel())
 
     console.log('Creating flight...')
-    this.packageService.addHotel(this.packageName,this.getHotel())
     this.inputFormsDisabled = true;
   }
 }
