@@ -9,14 +9,18 @@ from django.db import IntegrityError
 def HomePage(request):
     return render(request, 'home.html')
 
+
+from .models import UserProfile
+
+
 @csrf_protect
 def SignupPage(request):
     if request.method == 'POST':
-        #full_name = request.POST['full_name']
-
-        uname = request.POST.get('username')
-        #telephone = request.POST['telephone']
+        full_name = request.POST.get('full_name')
+        username = request.POST.get('username')
+        telephone = request.POST.get('telephone')
         email = request.POST.get('email')
+        address = request.POST.get('address')
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
         if pass1 != pass2:
@@ -24,8 +28,13 @@ def SignupPage(request):
         else:
             try:
                 # Attempt to create a new user
-                my_user = User.objects.create_user(uname, email, pass1)
+                my_user = User.objects.create_user(username=username, email=email, password=pass1)
+                my_user.first_name = full_name
                 my_user.save()
+
+                # Create a UserProfile instance for the new user
+                UserProfile.objects.create(user=my_user, telephone=telephone, address=address)
+
                 return redirect('login')
             except IntegrityError:
                 return HttpResponse("Username already exists. Please choose a different username.")
@@ -37,8 +46,6 @@ def LoginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print("Received username:", username)
-        print("Received password:", password)
         # Authenticating user
         user = authenticate(request, username=username, password=password)
         if user is not None:

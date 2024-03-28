@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style media="screen">
+        /* CSS styles */
         body {
             font-family: 'Poppins', sans-serif;
             background-image: url('https://img.freepik.com/free-photo/workplace-with-blue-office-supplies_23-2147843328.jpg');
@@ -100,15 +101,25 @@
 </head>
 <body>
     <form action="" method="post">
+        <!-- Form for user signup -->
         <h1>Concordia Travel</h1>
         <h3>Signup</h3>
-        {% csrf_token %}
+        {% csrf_token %} <!-- Django CSRF token -->
+
+        <label for="full_name">Full Name</label>
+        <input type="text" placeholder="Enter your full name" name="full_name" id="full_name">
 
         <label for="username">Username</label>
         <input type="text" placeholder="Enter your username" name="username" id="username">
 
         <label for="email">Email</label>
         <input type="email" placeholder="Enter your email" name="email" id="email">
+
+        <label for="telephone">Telephone Number</label>
+        <input type="text" placeholder="Enter your telephone number" name="telephone" id="telephone">
+
+        <label for="address">Address</label>
+        <input type="text" placeholder="Enter your address" name="address" id="address">
 
         <label for="password1">Password</label>
         <input type="password" placeholder="Enter your password" id="password1" name="password1">
@@ -118,6 +129,7 @@
 
         <button type="submit">Signup</button>
 
+        <!-- Link to login page -->
         <a href="{% url 'login' %}">Already have an account? Login here</a>
     </form>
 </body>
