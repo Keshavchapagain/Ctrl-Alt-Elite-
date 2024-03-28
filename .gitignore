@@ -9,3 +9,7 @@ db.sqlite3
 web-features/.vscode
 web-features/.editorconfig
 venv
+agent_api/migrations
+booking_api/migrations
+travel_api/migrations
+user_api/migrations
