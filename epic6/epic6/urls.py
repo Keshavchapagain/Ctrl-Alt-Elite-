@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from user import views
 from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +28,7 @@ urlpatterns = [
     path('login/', views.LoginPage, name='login'),
     path('home/', views.HomePage, name='home'),
     path('logout/', views.LogoutPage, name='logout'),
+    path('agent/', include('agent.urls')),
 ]
+
+
