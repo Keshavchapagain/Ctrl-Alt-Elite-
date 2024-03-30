@@ -1,3 +1,6 @@
+from django.views.decorators.csrf import csrf_exempt
+
+from travel_api.models import Package
 from .models import Booking  # CustomPackageBooking
 from .serializers import BookingSerializer  # CustomPackageBookingSerializer
 from rest_framework import permissions, viewsets
@@ -33,8 +36,15 @@ class EmailMixin:
 class BookingCreateView(APIView, EmailMixin):
     permission_classes = [permissions.IsAuthenticated]
 
+    #   @csrf_exempt
     def post(self, request):
-        serializer = BookingSerializer(data=request.data)
+        pack = Package.objects.all().filter(name=request.data["name"]).first()
+        # pack = Package.objects.all().filter(name='test').first()
+
+        booking = request.data
+        booking['package'] = pack[0].pk
+        # print('Booking', booking)
+        serializer = BookingSerializer(data=booking)
         if serializer.is_valid():
             serializer.save()
             self.send_email(

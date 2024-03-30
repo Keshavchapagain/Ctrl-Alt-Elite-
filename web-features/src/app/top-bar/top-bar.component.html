@@ -1,12 +1,16 @@
 <p>
   <mat-toolbar color="accent">
-<!--    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+<!--    <button mat-icon-button class="ex ample-icon" aria-label="Example icon-button with menu icon">-->
+<!--      <div style="display: flex;flex-direction: row; gap : 30px ;padding: 0 0 0; justify-content: flex-end">-->
 
     <button routerLink="/" mat-raised-button color="primary">View available packages</button>
-    <button routerLink="/createPackage" mat-raised-button color="primary">Create new package</button>
+    <button style="margin-left: 200px" routerLink="/createPackage" mat-raised-button color="primary">Create new package</button>
 <!--    <button routerLink="/pay" mat-raised-button color="primary"> new package</button>-->
+    <h5 style="margin: 400px">Logged in as : {{user}}</h5>
+    <button style="margin-left: 200px" routerLink="/login" mat-raised-button color="primary">Logout</button>
 
 
+<!--      </div>-->
   </mat-toolbar>
 
 </p>

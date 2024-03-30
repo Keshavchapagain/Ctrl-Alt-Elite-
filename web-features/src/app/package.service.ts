@@ -37,9 +37,11 @@ export class PackageService {
     }
     this.http.post('http://127.0.0.1:8000/login/',body,{responseType: 'text'}).subscribe(
       value => {
+        localStorage.setItem('currentUser',username)
       }
     );
   }
+
 
   addFlight(packageName : string, flight : Flight){
 
@@ -62,6 +64,19 @@ export class PackageService {
     this.http.patch(`http://127.0.0.1:8000/travels/packages/${packageName}/`,JSON.parse(body)).subscribe();
   }
 
+
+  addBooking(firstName : string, lastName: string, email : string, packageName : string){
+   let message = "test message"
+    let body = {
+     first_name : firstName,
+      last_name : lastName,
+      email : email,
+      message : message,
+      name : packageName
+    }
+    console.log(body)
+    this.http.post('http://127.0.0.1:8000/bookings/booking/create',body).subscribe()
+  }
   addHotel(packageName : string, hotel : Hotel){
 
     let body = `{

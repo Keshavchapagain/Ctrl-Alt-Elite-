@@ -48,14 +48,8 @@ This HTML was mainly inspired by https://stackblitz.com/edit/ngx-stripe-live?fil
         </mat-form-field>
       </div>
       <div style="margin-bottom: 10px"></div>
-      @if (elementsOptions.clientSecret) {
-      <ngx-stripe-elements
-        [stripe]="stripe"
-        [elementsOptions]="elementsOptions"
-      >
-        <ngx-stripe-payment [appearance]="appearance" />
-      </ngx-stripe-elements>
-      }
+
+
       <div style="margin-bottom: 20px"></div>
       <mat-divider></mat-divider>
       <div style="margin-bottom: 20px"></div>

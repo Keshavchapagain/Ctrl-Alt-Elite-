@@ -1,7 +1,7 @@
 from django.db import models
 from travel_api.models import (Package as TravelPackage,
-                                           Hotel as TravelHotel,
-                                           Flight as TravelFlight)
+                               Hotel as TravelHotel,
+                               Flight as TravelFlight, Package)
 
 
 class Booking(models.Model):
@@ -11,7 +11,7 @@ class Booking(models.Model):
     message = models.TextField()
 
     # relationship with package
-    package = models.ForeignKey(TravelPackage, on_delete=models.CASCADE, default=None)
+    package = models.ForeignKey(Package, on_delete=models.CASCADE, default=None,null=True, blank=True)
 
     def __str__(self):
         return self.first_name

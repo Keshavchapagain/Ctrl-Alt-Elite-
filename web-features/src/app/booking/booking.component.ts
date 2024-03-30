@@ -1,4 +1,4 @@
-import {Component, inject, Inject, signal, ViewChild} from '@angular/core';
+import {Component, inject, Inject, Input, signal, ViewChild} from '@angular/core';
 import {FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators} from "@angular/forms";
 import {
   MAT_DIALOG_DATA, MatDialog,
@@ -21,6 +21,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/mat
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatDivider} from "@angular/material/divider";
 import {MatLabel} from "@angular/material/form-field";
+import {PackageService} from "../package.service";
 
 
 export interface BookingDetails {
@@ -54,13 +55,15 @@ export interface BookingDetails {
 })
 
 export class BookingComponent {
-  constructor(
+  constructor(private backendService : PackageService,
               public dialogRef: MatDialogRef<BookingComponent>,
               @Inject(MAT_DIALOG_DATA) public data: BookingDetails) {}
 
   openPaymentForm(){
     // this.router.
   }
+  @Input() packageName!: string;
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -70,8 +73,8 @@ export class BookingComponent {
   private readonly fb = inject(UntypedFormBuilder);
 
   paymentElementForm = this.fb.group({
-    name: ['[Name]', [Validators.required]],
-    email: ['[support@ngx-stripe.dev]', [Validators.required]],
+    name: ['Nikolas Darlas', [Validators.required]],
+    email: ['nikolas.darlas@gmail.com', [Validators.required]],
     address: ['[Address]'],
     zipcode: ['[Zip Code]'],
     city: ['[City]'],
@@ -84,45 +87,17 @@ export class BookingComponent {
       colorPrimary: '#673ab7',
     },
   };
-  elementsOptions: StripeElementsOptions = {
-    locale: 'en',
-    clientSecret: `12_secret_${environment.stripe.secretKey}`,
-
-    appearance: {
-      theme: 'flat'
-    }
-  };
-  public cardOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        fontWeight: 400,
-        fontFamily: 'Circular',
-        fontSize: '14px',
-        iconColor: '#666EE8',
-        color: '#002333',
-        '::placeholder': {
-          color: '#919191',
-        },
-      },
-    },
-  };
-
-  paymentElementOptions: StripePaymentElementOptions = {
-    layout: {
-      type: 'tabs',
-      defaultCollapsed: false,
-      radios: false,
-      spacedAccordionItems: false
-    }
-  };
-
-  // Replace with your own public key
-  stripe = injectStripe(environment.stripe.publicKey);
   paying = signal(false);
   async pay(){
-    this.paying.set(true)
-    await this.delay(3000);
-    this.paying.set(false)
+    let firstName = this.paymentElementForm.get('name')?.getRawValue().split(' ')[0]
+    let lastName = this.paymentElementForm.get('name')?.getRawValue().split(' ')[1]
+    let email = this.paymentElementForm.get('email')?.getRawValue()
+
+    this.backendService.addBooking(firstName,lastName,email,this.packageName)
+
+    // this.paying.set(true)
+    // await this.delay(3000);
+    // this.paying.set(false)
   }
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );

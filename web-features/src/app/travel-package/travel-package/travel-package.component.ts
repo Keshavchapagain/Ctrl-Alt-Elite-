@@ -48,7 +48,9 @@ export class TravelPackageComponent implements OnInit {
       width: '400px',
       data: {name: "Name"}
     });
-
+    // Give the booking component the name for this package
+   let instance = dialogRef.componentInstance
+    instance.packageName = this.name
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.booked.set(true)

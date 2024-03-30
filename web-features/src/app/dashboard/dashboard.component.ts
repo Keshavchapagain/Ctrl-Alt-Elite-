@@ -42,6 +42,8 @@ export class DashboardComponent implements OnInit{
   searchForm = new FormGroup({
     search : new FormControl<string|null>(null)
   })
+
+  user = localStorage.getItem('currentUser')
   constructor(private packageService : PackageService) {
   }
   packageAt(i : number) {
