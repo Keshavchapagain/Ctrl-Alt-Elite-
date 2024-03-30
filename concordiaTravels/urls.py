@@ -25,10 +25,5 @@ urlpatterns = [
     path('travel_api-auth/', include('rest_framework.urls')),
     path('travels/', include('travel_api.urls')),
     path('bookings/', include('booking_api.urls')),
-
-    path('',user_api.views.SignupPage,name='signup'),
-    path('login/', user_api.views.LoginPage, name='login'),
-    path('home/', user_api.views.HomePage, name='home'),
-    path('logout/', user_api.views.LogoutPage, name='logout'),
-    path('agent/', include('agent_api.urls'))
+    path('', include('user_api.urls'))
 ]

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Page</title>
+    <title>User Signup Page</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -26,6 +26,7 @@ body{
     left: 50%;
     top: 50%;
 }
+
 .shape:first-child{
     background: linear-gradient(
         #1845ad,
@@ -44,8 +45,8 @@ body{
     bottom: -80px;
 }
 form{
-    height: 520px;
-    width: 400px;
+    height: 600px;
+    width: 450px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
     transform: translate(-50%,-50%);
@@ -59,7 +60,7 @@ form{
 }
 form *{
     font-family: 'Poppins',sans-serif;
-    color: #050505;
+    color: #070707;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
@@ -79,12 +80,12 @@ label{
 }
 input{
     display: block;
-    height: 50px;
+    height: 40px;
     width: 100%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 3px;
     padding: 0 10px;
-    margin-top: 8px;
+    margin-top: 2px;
     font-size: 14px;
     font-weight: 300;
 }
@@ -92,7 +93,7 @@ input{
     color: #e5e5e5;
 }
 button{
-    margin-top: 50px;
+    margin-top: 14px;
     width: 100%;
     background-color: #ffffff;
     color: #080710;
@@ -133,18 +134,25 @@ button{
         <div class="shape"></div>
     </div>
     <form>
-        <h3>User Login Page</h3>
+<!--        {% csrf_token %}-->
+        <h3>User Signup Form</h3>
 
-        <label for="login_user">Username</label>
-        <input type="text" placeholder="Enter Username" id="login_user" name="login_user">
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username" name="username" id="username">
 
-        <label for="login_pass">Password</label>
-        <input type="password" placeholder="Password" id="login_pass" name="login_pass">
+        <label for="email">Email</label>
+        <input type="email" placeholder="Email or Phone" name="email" id="email">
 
-        <button (click)="login()" type="submit">Log In</button>
+        <label for="password1">Password</label>
+        <input type="password" placeholder="Password" id="password1" name="password1">
 
-        <a routerLink="/signup" >Create a account</a>
 
+        <label for="password2">Confirm Password</label>
+        <input type="password" placeholder="Confirm Password" id="password2" name="password2">
+
+        <button (click)="signUp()" type="submit">Signup</button>
+
+        <a routerLink="/login" >Login</a>
 
     </form>
 </body>

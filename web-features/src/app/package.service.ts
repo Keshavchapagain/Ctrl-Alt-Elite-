@@ -6,6 +6,7 @@ import {Package, PackageArray} from "./package"
 import {Hotel} from "./hotel";
 import {Flight} from "./flight";
 import {PackageDetails} from "./packageDetails";
+
 @Injectable({
  providedIn: 'root'
 })
@@ -13,6 +14,31 @@ export class PackageService {
  constructor(private http: HttpClient) { }
   getPackagesAPI(): Observable<PackageArray> {
    return this.http.get('http://127.0.0.1:8000/travels/packages/') as Observable<PackageArray>;
+  }
+
+  signup(username : string,email : string,pass1 : string, pass2 : string){
+
+   const body = {
+      username : username,
+      email : email,
+      password1 : pass1,
+      password2 : pass2
+    }
+
+    console.log(body)
+    this.http.post('http://127.0.0.1:8000/signup/',body, {responseType: 'text'}).subscribe();
+  }
+
+  login(username : string, password : string){
+
+   const body = {
+      username : username,
+      password : password
+    }
+    this.http.post('http://127.0.0.1:8000/login/',body,{responseType: 'text'}).subscribe(
+      value => {
+      }
+    );
   }
 
   addFlight(packageName : string, flight : Flight){

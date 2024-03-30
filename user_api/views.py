@@ -2,6 +2,10 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+
+from django.views.decorators.csrf import ensure_csrf_cookie
+from rest_framework.utils import json
 
 
 # Create your views here.
@@ -10,38 +14,55 @@ def HomePage(request):
     return render(request, 'home.html')
 
 
+@csrf_exempt
 def SignupPage(request):
     if request.method == 'POST':
-        uname = request.POST.get('username')
-        email = request.POST.get('email')
-        pass1 = request.POST.get('password1')
-        pass2 = request.POST.get('password2')
 
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        uname = body.get('username')
+        email = body.get('email')
+        pass1 = body.get('password1')
+        pass2 = body.get('password2')
+
+        print(uname)
+        print(email)
+        print(pass2)
+        print(pass1)
         if pass1 != pass2:
             return HttpResponse("Your password and confrom password are not Same!!")
         else:
-
             my_user = User.objects.create_user(uname, email, pass1)
             my_user.save()
-            return redirect('login')
 
     return render(request, 'signup.html')
 
 
+@csrf_exempt
 def LoginPage(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        pass1 = request.POST.get('pass')
-        user = authenticate(request, username=username, password=pass1)
+        # print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        print(body_unicode)
+
+        username = body.get('username')
+        password = body.get('password')
+        print(username,password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            print('Logged in successfully!')
+            return HttpResponse("User logged in successfully!")
         else:
+            print('Invalid username or password')
             return HttpResponse("Username or Password is incorrect!!!")
 
-    return render(request, 'login.html')
+    # return render(request, 'login.html')
 
 
+@csrf_exempt
 def LogoutPage(request):
     logout(request)
     return redirect('login')

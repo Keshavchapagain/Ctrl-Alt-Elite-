@@ -56,6 +56,9 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:4200"]
+ALLOWED_HOSTS = ["127.0.0.1"]
+
 
 ROOT_URLCONF = 'concordiaTravels.urls'
 
