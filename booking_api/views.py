@@ -12,7 +12,6 @@ from django.core.mail import send_mail
 
 " list the booking "
 
-
 class BookingApiView(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
@@ -34,23 +33,23 @@ class EmailMixin:
 
 
 class BookingCreateView(APIView, EmailMixin):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
-    #   @csrf_exempt
+    @csrf_exempt
     def post(self, request):
-        pack = Package.objects.all().filter(name=request.data["name"]).first()
-        # pack = Package.objects.all().filter(name='test').first()
-
+        pack = Package.objects.all().filter(name=request.data["packageName"]).first()
+        package_name = request.data['packageName']
         booking = request.data
-        booking['package'] = pack[0].pk
-        # print('Booking', booking)
+        booking['package'] = pack.pk
+
         serializer = BookingSerializer(data=booking)
         if serializer.is_valid():
             serializer.save()
             self.send_email(
                 to_email=serializer.instance.email,
                 subject='Concordia Travels: Booking Creation',
-                message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking has been confirmed.'
+                message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking for '
+                        f'package {package_name} has been confirmed.'
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

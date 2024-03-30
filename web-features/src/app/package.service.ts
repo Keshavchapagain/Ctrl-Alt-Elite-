@@ -72,7 +72,7 @@ export class PackageService {
       last_name : lastName,
       email : email,
       message : message,
-      name : packageName
+      packageName : packageName
     }
     console.log(body)
     this.http.post('http://127.0.0.1:8000/bookings/booking/create',body).subscribe()
@@ -93,6 +93,21 @@ export class PackageService {
     this.http.patch(`http://127.0.0.1:8000/travels/packages/${packageName}/`,JSON.parse(body)).subscribe();
   }
 
+addPackageDetails(packageName : string, details : PackageDetails){
+
+    let body = `{
+      "_package": {
+        "country": "${details.country}",
+        "rating": "${details.rating}",
+        "image_path": "${details.image_path}",
+        "price": ${details.price},
+        "amenities": "${details.amenities}"
+        }
+    }`
+
+   console.log(body)
+    this.http.patch(`http://127.0.0.1:8000/travels/packages/${packageName}/`,JSON.parse(body)).subscribe();
+  }
 
   createBasePackage(name : String){
 

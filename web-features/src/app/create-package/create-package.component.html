@@ -9,8 +9,6 @@
 
 <div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: center; gap: 50px;">
 
-
-<!--  <div style="display: flex;flex-direction: row; padding: 0 5px 0; justify-content: center; gap: 50px;">-->
 <br>
 
 
@@ -31,10 +29,20 @@
       </app-flight>
     </div>
   </ng-container>
-<!--    <button (click)="addActivity()" mat-raised-button color="accent">Add activity</button>-->
+
+
+  <ng-container *ngIf="addPackageOptionsVisible">
+  <div style="display: flex;flex-direction: column; gap : 30px ;padding: 0 0 0; justify-content: flex-start">
+      <button (click)="addDetails()" mat-raised-button color="accent">Add Package Details</button>
+        <app-package-details *ngIf="packageDetailsVisible" [packageName]="this.getPackageName()">
+
+        </app-package-details>
+    </div>
+  </ng-container>
 
   </div>
-<!--    <app-package-details #_package></app-package-details>-->
+
+
 <!--</div>-->
 
 <!--<button (click)="createPackage(hot)"-->

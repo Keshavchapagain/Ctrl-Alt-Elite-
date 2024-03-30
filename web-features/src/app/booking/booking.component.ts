@@ -95,9 +95,9 @@ export class BookingComponent {
 
     this.backendService.addBooking(firstName,lastName,email,this.packageName)
 
-    // this.paying.set(true)
-    // await this.delay(3000);
-    // this.paying.set(false)
+    this.paying.set(true)
+    await this.delay(3000);
+    this.paying.set(false)
   }
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );

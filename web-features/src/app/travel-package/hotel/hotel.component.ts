@@ -65,6 +65,12 @@ export class HotelComponent {
   confirmHotel(){
     this.packageService.addHotel(this.packageName,this.getHotel())
 
+    this.priceForm.disable()
+    this.nameForm.disable()
+    this.addressForm.disable()
+    this.descriptionForm.disable()
+
+
     console.log('Creating flight...')
     this.inputFormsDisabled = true;
   }

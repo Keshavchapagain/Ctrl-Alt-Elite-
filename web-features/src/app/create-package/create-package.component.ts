@@ -46,8 +46,8 @@ export interface Task {
 export class CreatePackageComponent {
   hotelVisible : boolean = false
   flightVisible : boolean = false
-
   addPackageOptionsVisible : boolean = false
+  packageDetailsVisible : boolean = false
 
   packageNameForm = new FormGroup({
     packageName: new FormControl<string|null>('')
@@ -68,5 +68,8 @@ export class CreatePackageComponent {
   }
   addFlight() {
     this.flightVisible = true
+  }
+  addDetails(){
+    this.packageDetailsVisible = true
   }
 }
