@@ -10,6 +10,8 @@ import {PackageDetails} from "../../packageDetails";
 import {Flight} from "../../flight";
 import {BookingComponent} from "../../booking/booking.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Router, RouterLink} from "@angular/router";
+import {Booking} from "../../booking";
 
 @Component({
   selector: 'app-travel-package',
@@ -24,6 +26,7 @@ import {MatDialog} from "@angular/material/dialog";
     MatChipOption,
     NgForOf,
     NgIf,
+    RouterLink,
 
   ],
   templateUrl: './travel-package.component.html',
@@ -34,18 +37,25 @@ export class TravelPackageComponent implements OnInit {
   @Input() hotel!: Hotel;
   @Input() flight!: Flight;
   @Input() _package!: PackageDetails;
+  // @Input() booked!: boolean;
+  @Input() booking: Booking | null = null
 
-   booked = signal(false);
+  // booked = signal(false);
   // visible : boolean = true;
-  constructor(public dialog: MatDialog) {}
+
+  constructor(public dialog: MatDialog,private router: Router,private backendService : PackageService) {
+
+  }
   amenitiesList: string[] = [];
   ngOnInit() {
+    // The ameitites are commma seperated (Sauna,Pool,etc.)
     this.amenitiesList = this._package.amenities.split(",")
   }
   // Booking a package involves opening a dialog
   bookPackage(): void {
     const dialogRef = this.dialog.open(BookingComponent, {
-      width: '400px',
+      width: '700px',
+      height: '500px',
       data: {name: "Name"}
     });
     // Give the booking component the name for this package
@@ -53,7 +63,6 @@ export class TravelPackageComponent implements OnInit {
     instance.packageName = this.name
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.booked.set(true)
     });
   }
 
@@ -66,6 +75,19 @@ export class TravelPackageComponent implements OnInit {
       return {rating_text : "Great", color : 0x00FF00}
     else
       return {rating_text : "Poor", color : 0xFF0000}
+  }
+  modifyPackage(){
+    this.router.navigate(['modifyPackage',{packageName : this.name}])
+  }
+  modifyBooking(){
+
+  }
+  cancelBooking(){
+    this.backendService.deleteBooking(this.booking!!.id)
+  }
+  deletePackage(){
+    this.backendService.deletePackage(this.name)
+    // window.location.reload()
   }
 
 }

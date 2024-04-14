@@ -75,9 +75,9 @@ export class BookingComponent {
   paymentElementForm = this.fb.group({
     name: ['Nikolas Darlas', [Validators.required]],
     email: ['nikolas.darlas@gmail.com', [Validators.required]],
-    address: ['[Address]'],
-    zipcode: ['[Zip Code]'],
-    city: ['[City]'],
+    address: ['8033 Rue Birnam'],
+    zipcode: ['H3N 2T6'],
+    city: ['Montreal'],
     amount: [2500, [Validators.required, Validators.pattern(/\d+/)]]
   });
   appearance: Appearance = {

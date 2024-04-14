@@ -14,16 +14,32 @@
     </style>
     <div class="container_outer" >
 
-      <img width = "433" height = "300" ngSrc="../../../assets/images/{{_package.image_path}}">
+      <img priority width = "433" height = "300" ngSrc="../../../assets/images/{{_package.image_path}}">
 
       <div class="container_inner">
 
+        <div style="display: flex;gap: 100px">
         <div class="text">
             <h2>{{name}}</h2>
         </div>
+           <button (click)="modifyPackage()" mat-raised-button color="accent">
+          <span>Modify package</span>
+          </button>
+
+           <button (click)="deletePackage()" mat-raised-button color="warn">
+          <span>Delete package</span>
+          </button>
+
+
+        </div>
+
 
         <div class="text">
             <h4>{{_package.country}} - {{hotel.address}}</h4>
+        </div>
+
+        <div class="text">
+            <h4>Hotel : {{hotel.name}} ({{hotel.room_type}}) - {{hotel.price}}$/night</h4>
         </div>
 
         <div class="text">
@@ -58,19 +74,24 @@
                 <h3>CA ${{_package.price}} (per traveller)</h3>
               </div>
         </div>
-        @if (!booked()){
+        @if (booking == null){
           <button (click)="bookPackage()" mat-raised-button color="primary">
           <span>Book with {{flight.name}}</span>
           </button>
         } @else {
-          <button (click)="bookPackage()" mat-raised-button color="warn">
+          <div style="display: flex; justify-content: space-between; margin-left: 40px">
+          <button (click)="modifyBooking()" mat-raised-button color="accent">
           <span>Modify booking</span>
           </button>
+          <button (click)="cancelBooking()" mat-raised-button color="warn">
+          <span>Cancel booking</span>
+          </button>
+          </div>
         }
         <div class="text" style="padding-left: 40px"> <h5>{{flight.arrival_time.substring(0,10).
-         replace("-","/")}} - {{flight.departure_time.substring(0,10).
-         replace("-","/")}} </h5>
-         </div>
+          replace("-","/")}} - {{flight.departure_time.substring(0,10).
+          replace("-","/")}} </h5>
+        </div>
 
 
     </div>

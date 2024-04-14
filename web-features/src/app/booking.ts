@@ -3,5 +3,8 @@ export interface Booking {
   last_name : string,
   email : string,
   message : string,
-  package_name : string
+  package : number,
+  id : number
 }
+
+export interface BookingArray extends Array<Booking> { }

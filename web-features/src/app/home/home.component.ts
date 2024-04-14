@@ -12,7 +12,7 @@ import {RouterLink} from "@angular/router";
 })
 export class HomeComponent implements OnInit{
   isUserLoggedIn = signal(false)
-
+  
   constructor() {
   }
   ngOnInit(): void {

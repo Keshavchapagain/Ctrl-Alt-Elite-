@@ -1,0 +1,10 @@
+<app-top-bar></app-top-bar>
+
+<h1 style="margin-left: 700px">Modify details for package <i>{{packageName}}</i></h1>
+
+
+<div style="display: flex; gap:100px ; margin-left: 400px">
+  <app-hotel [packageName]="packageName"></app-hotel>
+  <app-flight [packageName]="packageName"></app-flight>
+  <app-package-details [packageName]="packageName"></app-package-details>
+</div>

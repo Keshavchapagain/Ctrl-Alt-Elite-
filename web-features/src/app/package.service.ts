@@ -6,6 +6,7 @@ import {Package, PackageArray} from "./package"
 import {Hotel} from "./hotel";
 import {Flight} from "./flight";
 import {PackageDetails} from "./packageDetails";
+import {Booking, BookingArray} from "./booking";
 
 @Injectable({
  providedIn: 'root'
@@ -16,17 +17,36 @@ export class PackageService {
    return this.http.get('http://127.0.0.1:8000/travels/packages/') as Observable<PackageArray>;
   }
 
+  getBookings(): Observable<BookingArray>{
+   return this.http.get('http://localhost:8000/bookings/booking') as Observable<BookingArray>;
+  }
+  // getBooking(${id}) : Booking{
+  // return this.http.get('http://localhost:8000/bookings/booking/') as Observable<BookingArray>;
+  // }
+  deleteBooking(id : number){
+   this.http.delete(`http://localhost:8000/bookings/booking/${id}`).subscribe(value => {
+     console.log(`Deleted booking : `, value)
+   })
+  }
   signup(username : string,email : string,pass1 : string, pass2 : string){
 
    const body = {
       username : username,
-      email : email,
+     email : email,
       password1 : pass1,
       password2 : pass2
     }
 
     console.log(body)
-    this.http.post('http://127.0.0.1:8000/signup/',body, {responseType: 'text'}).subscribe();
+    this.http.post('http://127.0.0.1:8000/signup/',body).subscribe(value => {
+
+        let user = JSON.parse(value.toString())
+        localStorage.setItem("user_first",user.first_name)
+        localStorage.setItem("user_last",user.last_name)
+        // localStorage.setItem("user",user.first_name)
+        // console.log(a)
+      }
+    );
   }
 
   login(username : string, password : string){
@@ -35,9 +55,12 @@ export class PackageService {
       username : username,
       password : password
     }
+
     this.http.post('http://127.0.0.1:8000/login/',body,{responseType: 'text'}).subscribe(
       value => {
-        localStorage.setItem('currentUser',username)
+        // if(value === "Success") {
+          localStorage.setItem('currentUser', username)
+        // }
       }
     );
   }
@@ -77,6 +100,8 @@ export class PackageService {
     console.log(body)
     this.http.post('http://127.0.0.1:8000/bookings/booking/create',body).subscribe()
   }
+
+  //Modify the hotel back end using a PATCH call
   addHotel(packageName : string, hotel : Hotel){
 
     let body = `{
@@ -92,6 +117,16 @@ export class PackageService {
    console.log(body)
     this.http.patch(`http://127.0.0.1:8000/travels/packages/${packageName}/`,JSON.parse(body)).subscribe();
   }
+
+  //Delete the package, make sure to refresh the page after !
+deletePackage(packageName: string){
+   console.log(`deleting package ${packageName}`)
+   this.http.delete(`http://127.0.0.1:8000/travels/packages/${packageName}/`).subscribe(
+     value => {
+       window.location.reload()
+     }
+   )
+}
 
 addPackageDetails(packageName : string, details : PackageDetails){
 

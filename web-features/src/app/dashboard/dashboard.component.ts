@@ -11,6 +11,7 @@ import {Package, PackageArray} from "../package";
 import {PackageService} from "../package.service";
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Booking, BookingArray} from "../booking";
 
 
 @Component({
@@ -37,30 +38,62 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 })
 export class DashboardComponent implements OnInit{
 
-  currentlySearchedPackage = ''
-  packages :PackageArray = []
+  // Arrays to hold all the packages and bookings for a client
+  packages : PackageArray = []
+  bookings : BookingArray = []
+
   searchForm = new FormGroup({
     search : new FormControl<string|null>(null)
   })
 
   user = localStorage.getItem('currentUser')
-  constructor(private packageService : PackageService) {
+  constructor(private backendService : PackageService) {
   }
+
+  /*
+    Get a package from the list of packages
+   */
   packageAt(i : number) {
     return {
         component:TravelPackageComponent,inputs:{
           name : this.packages.at(i)?.name,
           hotel : this.packages.at(i)?.hotel,
           _package : this.packages.at(i)?._package,
-          flight : this.packages.at(i)?.flight
+          flight : this.packages.at(i)?.flight,
+          booking : this.packages.at(i)?.booking
         }
     }
   }
+  /*
+    Get the all packages from the backend.
+   */
   getPackages(){
-    this.packageService.getPackagesAPI().subscribe({
+    this.backendService.getPackagesAPI().subscribe({
       next: (data) =>{
         this.packages = data
+        // Putting this here ensures that it will get called after the packages have been obtained.
+        this.getBookings()
         console.log(data)
+      }
+    })
+  }
+
+  async getBookings(){
+    this.backendService.getBookings().subscribe({
+      next: (data) =>{
+        this.bookings = data
+        for(let i = 0 ; i < this.bookings.length ; i++){
+
+          // Get the ID of the package that is associated with this booking
+          let packageID = this.bookings.at(i)?.package
+
+          // Get the package that is booked for the current booking
+          let bookedPackage = this.packages.filter(function (value){
+            return (value.id == packageID)
+          })
+          // Set the booking information for the booked package
+          bookedPackage[0].booking = this.bookings.at(i)!!
+        }
       }
     })
   }
@@ -80,6 +113,6 @@ export class DashboardComponent implements OnInit{
 
   ngOnInit(): void {
     this.getPackages()
+    // this.getBookings()
   }
-
 }

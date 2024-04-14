@@ -3,8 +3,8 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatSelect} from "@angular/material/select";
 import {MatInput} from "@angular/material/input";
-import {PackageDetails} from "../packageDetails";
-import {PackageService} from "../package.service";
+import {PackageDetails} from "../../packageDetails";
+import {PackageService} from "../../package.service";
 import {MatButton} from "@angular/material/button";
 
 @Component({

@@ -12,7 +12,5 @@ class PackageViewSet(viewsets.ModelViewSet):
     ser_class = PackageSerializer
     lookup_field = 'name'
 
-
     def get_serializer_class(self):
         return PackageSerializer
-

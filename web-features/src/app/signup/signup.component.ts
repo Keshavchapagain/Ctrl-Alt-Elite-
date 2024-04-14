@@ -14,17 +14,18 @@ export class SignupComponent {
 
   constructor(private packageService : PackageService,private router: Router) {
   }
-  signUp(){
+  async signUp() {
 
     let username = (<HTMLInputElement>document.getElementById("username")).value;
     let email = (<HTMLInputElement>document.getElementById("email")).value;
     let pass1 = (<HTMLInputElement>document.getElementById("password1")).value;
     let pass2 = (<HTMLInputElement>document.getElementById("password2")).value;
 
-    if(pass1 === pass2){
+    if (pass1 === pass2) {
+      await this.packageService.signup(username, email, pass1, pass2)
 
     }
-    this.packageService.signup(username,email,pass1,pass2)
-    this.router.navigate(['login'])
+    // this.packageService.signup(username, email, pass1, pass2)
+    // this.router.navigate(['login'])
   }
 }

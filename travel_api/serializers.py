@@ -15,15 +15,18 @@ class FlightSerializer(serializers.ModelSerializer):
         model = Flight
         fields = '__all__'
 
+
 class PackageDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = PackageDetails
         fields = '__all__'
 
+
 class PackageSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     hotel = HotelSerializer(many=False)
     flight = FlightSerializer(many=False)
     _package = PackageDetailSerializer(many=False)
+
     class Meta:
         model = Package
         fields = '__all__'

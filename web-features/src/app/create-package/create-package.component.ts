@@ -17,7 +17,7 @@ import {Package} from "../package";
 import {NgComponentOutlet, NgForOf, NgIf} from "@angular/common";
 import {Flight} from "../flight";
 import {Hotel} from "../hotel";
-import {PackageDetailsComponent} from "../package-details/package-details.component";
+import {PackageDetailsComponent} from "../travel-package/package-details/package-details.component";
 import {PackageDetails} from "../packageDetails";
 
 const today = new Date();

@@ -1,6 +1,6 @@
 <app-top-bar></app-top-bar>
 
-<form [formGroup]="searchForm">
+<form [formGroup]="searchForm" style="margin-left: 800px" >
 <mat-form-field>
   <mat-label>Search</mat-label>
   <input matInput formControlName="search">
@@ -8,9 +8,9 @@
 
 </form>
 
-<ul *ngFor="let package of packages; index as i">
+<ul *ngFor="let _package of packages; index as i">
 <!--  {{package['price']}}-->
-  <ng-container  *ngIf="isVisible(package)">
+  <ng-container  *ngIf="isVisible(_package)">
   <ng-container *ngComponentOutlet="
         packageAt(i).component;
         inputs: packageAt(i).inputs;

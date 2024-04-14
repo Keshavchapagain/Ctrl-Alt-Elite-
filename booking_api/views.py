@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 
 " list the booking "
 
+
 class BookingApiView(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
@@ -59,9 +60,10 @@ class BookingCreateView(APIView, EmailMixin):
 
 
 class BookingApiDetailView(APIView, EmailMixin):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = BookingSerializer
 
+    @csrf_exempt
     def get(self, request, id):
         try:
             booking = Booking.objects.get(id=id)
@@ -70,8 +72,9 @@ class BookingApiDetailView(APIView, EmailMixin):
         except Booking.DoesNotExist:
             return None
 
+    @csrf_exempt
     def put(self, request, id):
-        booking = self.get_object(id=id)
+        booking = Booking.objects.get(id=id)
         if not booking:
             return Response(
                 {"res": "Object with book id does not exists"},
@@ -88,8 +91,9 @@ class BookingApiDetailView(APIView, EmailMixin):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @csrf_exempt
     def delete(self, request, id):
-        booking = self.get_object(id=id)
+        booking = Booking.objects.get(id=id)
         to_email = booking.email
         first_name = booking.first_name
         last_name = booking.last_name
@@ -114,6 +118,7 @@ class BookingApiDetailView(APIView, EmailMixin):
 
 
 class BookingSearchAPIView(APIView):
+    @csrf_exempt
     def get(self, request):
         query = request.query_params.get('query', '')
         booking = Booking.objects.filter(name__icontains=query)
