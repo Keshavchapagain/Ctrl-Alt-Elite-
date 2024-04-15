@@ -3,7 +3,7 @@ import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
 import {TravelPackageComponent} from "../travel-package/travel-package/travel-package.component";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {TopBarComponent} from "../top-bar/top-bar.component";
 
 import {AsyncPipe, NgComponentOutlet, NgForOf, NgIf} from '@angular/common';
@@ -46,8 +46,14 @@ export class DashboardComponent implements OnInit{
     search : new FormControl<string|null>(null)
   })
 
-  user = localStorage.getItem('currentUser')
-  constructor(private backendService : PackageService) {
+  user : string = ""
+  constructor(private backendService : PackageService,private router: Router) {
+    // localStorage.setItem("currentUser","hi")
+    this.user = localStorage.getItem('currentUser')!!
+    if(this.user == null){
+      this.router.navigate(['login'])
+    }
+    console.log('Current user :',this.user)
   }
 
   /*
@@ -82,21 +88,24 @@ export class DashboardComponent implements OnInit{
     this.backendService.getBookings().subscribe({
       next: (data) =>{
         this.bookings = data
+        console.log(this.bookings)
         for(let i = 0 ; i < this.bookings.length ; i++){
 
           // Get the ID of the package that is associated with this booking
-          let packageID = this.bookings.at(i)?.package
 
+          let packageID = this.bookings.at(i)?.package
+          if(packageID != null){
           // Get the package that is booked for the current booking
-          let bookedPackage = this.packages.filter(function (value){
-            return (value.id == packageID)
+            let bookedPackage = this.packages.filter(function (value){
+              return (value.id == packageID)
           })
           // Set the booking information for the booked package
           bookedPackage[0].booking = this.bookings.at(i)!!
         }
       }
-    })
+    }})
   }
+
   /*
     Searching is done by finding the package such that the name matches what was entered in the search form.
     When this element is found, it will return a boolean to specify that it should be visible. Thus, searching is done
@@ -113,6 +122,5 @@ export class DashboardComponent implements OnInit{
 
   ngOnInit(): void {
     this.getPackages()
-    // this.getBookings()
   }
 }

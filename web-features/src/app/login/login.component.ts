@@ -18,7 +18,14 @@ export class LoginComponent {
   login(){
     let username = (<HTMLInputElement>document.getElementById("login_user")).value;
     let password = (<HTMLInputElement>document.getElementById("login_pass")).value;
-    this.backendService.login(username,password)
-    this.router.navigate([''])
+
+    if(username === "" || password === "") {
+      alert("Missing login parameters")
+    }
+    else {
+      this.backendService.login(username, password)
+      this.router.navigate([''])
+    }
+
   }
 }

@@ -59,10 +59,9 @@ export class BookingComponent {
               public dialogRef: MatDialogRef<BookingComponent>,
               @Inject(MAT_DIALOG_DATA) public data: BookingDetails) {}
 
-  openPaymentForm(){
-    // this.router.
-  }
+
   @Input() packageName!: string;
+  @Input() cost! : number
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -92,11 +91,14 @@ export class BookingComponent {
     let firstName = this.paymentElementForm.get('name')?.getRawValue().split(' ')[0]
     let lastName = this.paymentElementForm.get('name')?.getRawValue().split(' ')[1]
     let email = this.paymentElementForm.get('email')?.getRawValue()
+    let zip = this.paymentElementForm.get('zipcode')?.getRawValue()
+    let city = this.paymentElementForm.get('city')?.getRawValue()
 
-    this.backendService.addBooking(firstName,lastName,email,this.packageName)
+
+    this.backendService.addBooking(firstName,lastName,email,this.packageName,zip,city, this.cost)
 
     this.paying.set(true)
-    await this.delay(3000);
+    await this.delay(1000);
     this.paying.set(false)
   }
   delay(ms: number) {
@@ -112,4 +114,5 @@ export class BookingComponent {
       city: '',
     });
   }
+
 }

@@ -62,9 +62,14 @@ export class CreatePackageComponent {
   }
   createPackage(){
     let name = this.getPackageName()
-    console.log(`Creating package ${name}`)
-    this.packageService.createBasePackage(name)
-    this.addPackageOptionsVisible = true
+    if(name === ""){
+      alert("Cannot have empty package name!")
+    }
+    else {
+      console.log(`Creating package ${name}`)
+      this.packageService.createBasePackage(name)
+      this.addPackageOptionsVisible = true
+    }
   }
   addFlight() {
     this.flightVisible = true

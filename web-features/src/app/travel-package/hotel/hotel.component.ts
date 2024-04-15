@@ -34,10 +34,13 @@ interface RoomType {
 export class HotelComponent {
   @Input() packageName!: string;
   inputFormsDisabled = false
+
   roomTypes : RoomType[] = [
-    {value: 'Single Room', viewValue : "Single bed"},
-    {value: 'Double Room', viewValue : "Double bed"},
+    {value: 'Single Room', viewValue : "Single Room"},
+    {value: 'Double Room', viewValue : "Double Room"},
   ]
+  room_type : string = "Single Room"
+
   nameForm = new FormGroup({
     name : new FormControl<string|null>("Herodion Hotel")
   })
@@ -59,10 +62,11 @@ export class HotelComponent {
       price : this.priceForm.get('price')?.getRawValue(),
       address : this.addressForm.get('address')?.getRawValue(),
       description: this.descriptionForm.get('description')?.getRawValue(),
-      room_type : "Single Room"
+      room_type : this.room_type
     }
   }
   confirmHotel(){
+    console.log(this.room_type)
     this.packageService.addHotel(this.packageName,this.getHotel())
 
     this.priceForm.disable()

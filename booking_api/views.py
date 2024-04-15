@@ -42,7 +42,10 @@ class BookingCreateView(APIView, EmailMixin):
         package_name = request.data['packageName']
         booking = request.data
         booking['package'] = pack.pk
-
+        print(booking)
+        zip_code = booking['zip_code']
+        city = booking['city']
+        cost = booking['cost']
         serializer = BookingSerializer(data=booking)
         if serializer.is_valid():
             serializer.save()
@@ -50,7 +53,8 @@ class BookingCreateView(APIView, EmailMixin):
                 to_email=serializer.instance.email,
                 subject='Concordia Travels: Booking Creation',
                 message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking for '
-                        f'package {package_name} has been confirmed.'
+                        f'package {package_name} has been confirmed at {zip_code} in {city}. Your payment of {cost}$ '
+                        f'was processed'
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -80,13 +84,17 @@ class BookingApiDetailView(APIView, EmailMixin):
                 {"res": "Object with book id does not exists"},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        package_name = request.data['packageName']
+        zip_code = booking['zip_code']
+        city = booking['city']
         serializer = BookingSerializer(instance=booking, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             self.send_email(
                 to_email=serializer.instance.email,
                 subject='Concordia Travels: Booking Update',
-                message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking has been Updated Sucessfully'
+                message=f'Hi {serializer.instance.first_name} {serializer.instance.last_name}, Your booking for '
+                        f'package {package_name} at {zip_code} in {city} has been updated successfully'
             )
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -94,6 +102,7 @@ class BookingApiDetailView(APIView, EmailMixin):
     @csrf_exempt
     def delete(self, request, id):
         booking = Booking.objects.get(id=id)
+
         to_email = booking.email
         first_name = booking.first_name
         last_name = booking.last_name
@@ -105,7 +114,7 @@ class BookingApiDetailView(APIView, EmailMixin):
         self.send_email(
             to_email=to_email,
             subject='Concordia Travels: Booking Cancellation',
-            message=f'Hi {first_name} {last_name}, Your booking has been Cancelled.'
+            message=f'Hi {first_name} {last_name}, Your booking for {booking.package.name} has been Cancelled.'
         )
         booking.delete()
         return Response(

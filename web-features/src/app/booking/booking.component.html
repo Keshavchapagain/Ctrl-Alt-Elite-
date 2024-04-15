@@ -68,7 +68,7 @@ This HTML was mainly inspired by https://stackblitz.com/edit/ngx-stripe-live?fil
           color="primary"
           [disabled]="paying()"
           (click)="pay()"
-        >
+          >
           @if (paying()) {
           <span>PROCESSING...</span>
           } @else {

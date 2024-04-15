@@ -4,7 +4,10 @@ export interface Booking {
   email : string,
   message : string,
   package : number,
-  id : number
+  id : number,
+  zip_code : string,
+  city : string,
+  cost : number
 }
 
 export interface BookingArray extends Array<Booking> { }

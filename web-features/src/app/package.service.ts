@@ -20,33 +20,40 @@ export class PackageService {
   getBookings(): Observable<BookingArray>{
    return this.http.get('http://localhost:8000/bookings/booking') as Observable<BookingArray>;
   }
-  // getBooking(${id}) : Booking{
-  // return this.http.get('http://localhost:8000/bookings/booking/') as Observable<BookingArray>;
-  // }
   deleteBooking(id : number){
    this.http.delete(`http://localhost:8000/bookings/booking/${id}`).subscribe(value => {
      console.log(`Deleted booking : `, value)
+     window.location.reload()
    })
   }
+  modifyBooking(firstName : string, lastName: string, email : string, packageName : string,
+             zip_code : string,city : string, cost : number, id : number){
+   let body = {
+     first_name : firstName,
+      last_name : lastName,
+      email : email,
+      message : "Updated...",
+      packageName : packageName,
+      city : city,
+      zip_code : zip_code,
+      cost : cost
+    }
+   this.http.put(`http://localhost:8000/bookings/booking/${id}`,body)
+  }
+
   signup(username : string,email : string,pass1 : string, pass2 : string){
 
    const body = {
       username : username,
-     email : email,
+      email : email,
       password1 : pass1,
       password2 : pass2
     }
 
-    console.log(body)
     this.http.post('http://127.0.0.1:8000/signup/',body).subscribe(value => {
-
-        let user = JSON.parse(value.toString())
-        localStorage.setItem("user_first",user.first_name)
-        localStorage.setItem("user_last",user.last_name)
-        // localStorage.setItem("user",user.first_name)
-        // console.log(a)
-      }
-    );
+      let user = JSON.parse(JSON.stringify(value))
+      localStorage.setItem("currentUser", user.username)
+    });
   }
 
   login(username : string, password : string){
@@ -56,10 +63,16 @@ export class PackageService {
       password : password
     }
 
-    this.http.post('http://127.0.0.1:8000/login/',body,{responseType: 'text'}).subscribe(
+    this.http.post('http://127.0.0.1:8000/login/',body).subscribe(
       value => {
-        // if(value === "Success") {
-          localStorage.setItem('currentUser', username)
+        let user = JSON.parse(JSON.stringify(value))
+        console.log(user)
+        localStorage.setItem("currentUser",user.username)
+        // if(user.status != "ERROR"){
+        //   localStorage.setItem('currentUser', user.username)
+        // }
+        // else{
+        //   localStorage.setItem('alert', user.message)
         // }
       }
     );
@@ -88,17 +101,22 @@ export class PackageService {
   }
 
 
-  addBooking(firstName : string, lastName: string, email : string, packageName : string){
+  addBooking(firstName : string, lastName: string, email : string, packageName : string,
+             zip_code : string,city : string, cost : number){
    let message = "test message"
     let body = {
      first_name : firstName,
       last_name : lastName,
       email : email,
       message : message,
-      packageName : packageName
+      packageName : packageName,
+      city : city,
+      zip_code : zip_code,
+      cost : cost
     }
-    console.log(body)
-    this.http.post('http://127.0.0.1:8000/bookings/booking/create',body).subscribe()
+    this.http.post('http://127.0.0.1:8000/bookings/booking/create',body).subscribe(value => {
+      window.location.reload()
+    })
   }
 
   //Modify the hotel back end using a PATCH call
@@ -119,9 +137,9 @@ export class PackageService {
   }
 
   //Delete the package, make sure to refresh the page after !
-deletePackage(packageName: string){
-   console.log(`deleting package ${packageName}`)
-   this.http.delete(`http://127.0.0.1:8000/travels/packages/${packageName}/`).subscribe(
+deletePackage(id: string){
+   console.log(`deleting package ${id}`)
+   this.http.delete(`http://127.0.0.1:8000/travels/packages/${id}/`).subscribe(
      value => {
        window.location.reload()
      }

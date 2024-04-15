@@ -53,13 +53,20 @@ export class PackageDetailsComponent {
   }
 
   confirmPackageDetails(){
-    this.amenitiesForm.disable()
-    this.countryForm.disable()
-    this.imagePathForm.disable()
-    this.ratingForm.disable()
-    this.totalPriceForm.disable()
+
     console.log(`Creating flight for ${this.packageName}`)
 
-    this.packageService.addPackageDetails(this.packageName,this.getPackageDetails())
+    let rating = this.ratingForm.get('rating')?.getRawValue()
+    if(rating < 0 || rating > 10){
+      alert('Wrong range for the rating! (expecting 0-10)')
+    }
+    else {
+      this.packageService.addPackageDetails(this.packageName, this.getPackageDetails())
+      this.amenitiesForm.disable()
+      this.countryForm.disable()
+      this.imagePathForm.disable()
+      this.ratingForm.disable()
+      this.totalPriceForm.disable()
+    }
   }
 }

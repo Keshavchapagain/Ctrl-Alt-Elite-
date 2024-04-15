@@ -35,10 +35,9 @@ def SignupPage(request):
         else:
             my_user = User.objects.create_user(uname, email, pass1)
             my_user.save()
-            return JsonResponse({"status": "OK", "message": "User registered successfully"})
-
-    return render(request, 'signup.html')
-
+            response = JsonResponse({"status": "OK", "username": uname, "email": email, "password" : "pass1"})
+            print(response)
+            return response
 
 @csrf_exempt
 def LoginPage(request):
@@ -55,10 +54,12 @@ def LoginPage(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponse("Success")
+            response = JsonResponse({"status": "OK", "username": username})
+            print(response)
+            return response
         else:
-            # print('Invalid username or password')
-            return HttpResponse("Invalid")
+            response = JsonResponse({"status": "ERROR", "message": "Invalid username or password"})
+            return response
 
     # return render(request, 'login.html')
 

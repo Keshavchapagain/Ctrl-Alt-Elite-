@@ -16,7 +16,5 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
   styleUrl: './top-bar.component.css'
 })
 export class TopBarComponent {
-
   user = localStorage.getItem('currentUser')
-
 }

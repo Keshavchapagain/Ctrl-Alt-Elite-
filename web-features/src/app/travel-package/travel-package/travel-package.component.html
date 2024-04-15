@@ -39,11 +39,11 @@
         </div>
 
         <div class="text">
-            <h4>Hotel : {{hotel.name}} ({{hotel.room_type}}) - {{hotel.price}}$/night</h4>
+          <h4>Hotel : {{hotel.name}} <u>({{hotel.room_type}})</u> - <strong>{{hotel.price}}$</strong>/night</h4>
         </div>
 
         <div class="text">
-            <h6>{{hotel.description}}</h6>
+            <h4><i>{{hotel.description}}</i></h4>
         </div>
 
 
@@ -59,20 +59,27 @@
 
         </div>
 
-        <div style="display: flex;flex-direction: row; padding: 0 5px 0; max-width: 100px; justify-content: space-between">
-           <div class="text">
-              <h3>{{_package.rating}}</h3>
-           </div>
+        <div style="display: flex;flex-direction: row; padding: 0 5px 0; gap: 30px;">
+            <h3>Rating : </h3>
+            <div [ngStyle]="getColor()">
+            <h3>{{_package.rating}} / 10 - {{getRatingScore().rating_text}} </h3>
+          </div>
 
-           <div class="text">
-             <h3>{{getRatingScore().rating_text}}</h3>
-           </div>
         </div>
 
         <div style="display: flex;flex-direction: row; padding: 0; gap : 20px ; justify-content: flex-start">
               <div class = "text">
-                <h3>CA ${{_package.price}} (per traveller)</h3>
+                <h3>Flight tickets - CA <strong>${{flight.price}}</strong> (per traveller)</h3>
               </div>
+
+          <div class = "text">
+                <h3>Base package cost - CA <strong>${{_package.price}}</strong></h3>
+              </div>
+
+          <div class = "text">
+            <h3>Total cost for {{ellapsed_days}} days - CA <strong>${{total_cost}}</strong></h3>
+              </div>
+
         </div>
         @if (booking == null){
           <button (click)="bookPackage()" mat-raised-button color="primary">
@@ -88,9 +95,9 @@
           </button>
           </div>
         }
-        <div class="text" style="padding-left: 40px"> <h5>{{flight.arrival_time.substring(0,10).
+        <div class="text" style="padding-left: 40px"> <h4>{{flight.arrival_time.substring(0,10).
           replace("-","/")}} - {{flight.departure_time.substring(0,10).
-          replace("-","/")}} </h5>
+          replace("-","/")}} </h4>
         </div>
 
 

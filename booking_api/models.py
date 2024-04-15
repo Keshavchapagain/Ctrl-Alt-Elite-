@@ -9,7 +9,9 @@ class Booking(models.Model):
     last_name = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField()
     message = models.TextField()
-
+    zip_code = models.CharField(max_length=20, blank=True, null=True)
+    city = models.CharField(max_length=20, blank=True, null=True)
+    cost = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     # relationship with package
     package = models.ForeignKey(Package, on_delete=models.CASCADE, default=None,null=True, blank=True)
 
