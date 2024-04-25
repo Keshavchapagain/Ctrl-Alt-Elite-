@@ -1,9 +1,11 @@
 # COEN 6311 Project
+Team : Ctrl-Alt-Elite-
+
 Members : 
 Nikolas Darlas
-James A.
-Shafkat
-Keshav
+James Abonhese
+T Shafkat
+Keshav Chapagain
 Aikins
 
 ## How to use
